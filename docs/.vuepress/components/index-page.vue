@@ -12,7 +12,7 @@
               </li>
               <li>
                 <a
-                  href="http://i58yaw.edtsoft.com/medicals/quick-doc"
+                  href="http://192.168.140.130:8099/zhanghan/zyl-ui"
                   target="_blank"
                 >
                   GitLab
