@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2022-11-24 11:07:14
  * @LastEditors: zhanghan
- * @LastEditTime: 2022-12-04 03:02:53
+ * @LastEditTime: 2022-12-04 21:02:00
  * @Descripttion:
  */
 module.exports = {
@@ -22,7 +22,7 @@ module.exports = {
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
-      { text: '文档', link: 'docs/get-start/' },
+      { text: 'GitLab', link: 'http://192.168.140.130:8099/zhanghan/zyl-ui' },
     ],
     sidebar: [
       'docs/introduce/',
