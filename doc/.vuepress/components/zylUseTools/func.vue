@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2020-04-30 09:52:45
  * @LastEditors: zhanghan
- * @LastEditTime: 2022-12-04 16:01:46
+ * @LastEditTime: 2022-12-04 20:07:41
  * @Descripttion: 方法表格
  -->
 <template>
@@ -39,10 +39,12 @@ export default {
           intro: '清除所有cookie',
         },
         {
-          funName: 'copyText (content)',
+          funName: 'copyText (content, success, fail)',
           intro:
             '复制内容 <br/>' +
-            '<strong>content</strong> 需要复制的内容 string <br/> ',
+            '<strong>content</strong> 需要复制的内容 string <br/> ' +
+            '<strong>success</strong> 复制成功回调 function <br/> ' +
+            '<strong>fail</strong> 复制失败回调 function <br/> ',
         },
         {
           funName: 'fileDownload (file, name)',

@@ -1,11 +1,17 @@
 ---
-## title: 介绍
+title: 介绍
 ---
 
 # 介绍
 
+先分享两个有趣视频
+
 <video width="320" height="240" controls>
   <source src="./img/icu.mp4" type="video/mp4">
+</video>
+
+<video width="320" height="240" controls>
+  <source src="./img/product.mp4" type="video/mp4">
 </video>
 
 ### 初衷

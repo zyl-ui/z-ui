@@ -68,9 +68,20 @@ export default {
         this.scrollParent.removeEventListener('scroll', this.scrollHandler)
     },
 
-    copyContent() {
-      this.$zylUseCopyText('aaaaaaaaaaaa')
-      console.log(document.getElementById('code'))
+    copyContent(e) {
+      this.$zylUseTools.copyText(
+        e.target.nextSibling.nextSibling.firstChild.firstChild.innerText,
+        () => {
+          this.$zylUseToast({
+            message: '复制成功！',
+          })
+        },
+        () => {
+          this.$zylUseToast({
+            message: '复制失败！',
+          })
+        }
+      )
     },
   },
 
@@ -299,6 +310,10 @@ export default {
       padding-left: 5px;
       padding-right: 25px;
     }
+  }
+
+  div[class*='language-']::before {
+    right: 30px;
   }
 }
 </style>
