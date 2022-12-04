@@ -1,10 +1,10 @@
 <!--
  * @Author: zhanghan
- * @Date: 2020-04-30 09:52:45
+ * @Date: 2022-12-04 01:00:07
  * @LastEditors: zhanghan
- * @LastEditTime: 2022-11-30 12:41:03
- * @Descripttion: 属性表格
- -->
+ * @LastEditTime: 2022-12-04 19:24:43
+ * @Descripttion: 
+-->
 <template>
   <div>
     <zyl-attr :tableData="tableData"></zyl-attr>
