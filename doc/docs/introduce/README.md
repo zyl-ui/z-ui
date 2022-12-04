@@ -118,30 +118,39 @@ export default zylSyncButton
 ```javascript
 // src/packages/index.js
 
-import zylSyncButton from './components/zylSyncButton/index.js'
-// ... 其他组件
+// 引入插件
+import zylUseToast from './plugins/zylUseToast'
+import zylUseFormValids from './plugins/zylUseFormValids'
+const plugins = [zylUseToast, zylUseFormValids]
 
-import zylUseFormValids from './plugins/zylUseFormValids/index.js'
-// ... 其他插件
+// 引入组件
+import zylAttr from './components/zylAttr'
+import zylDemoBlock from './components/zylDemoBlock'
+const components = [zylAttr, zylDemoBlock]
 
-// 全局注册组件
+// 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，则所有的组件都将被注册
 const install = (Vue) => {
-  Vue.component(zylSyncButton.name, zylSyncButton)
-  // ... 其他组件
-  Vue.use(zylUseFormValids)
-  // ... 其他组件
+  // 判断是否安装
+  if (install.installed) return
+  // 批量注册全局插件
+  plugins.map((plugin) => {
+    Vue.use(plugin)
+  })
+  // 批量注册全局组件
+  components.map((component) => {
+    Vue.component(component.name, component)
+  })
 }
 
-/**
- * 有可能组件会通过script标签引入，如<script src='https://xxx/zyl-ui'></script>
- */
-if (typeof Window.Vue !== 'undefined') {
-  install(Vue) // 全局直接通过script 引用的方式会默认调用install方法
+// 判断是否是直接引入文件,有可能组件会通过script标签引入，如<script src='https://xxx/zyl-ui'></script>
+if (typeof window !== 'undefined' && window.Vue) {
+  install(window.Vue)
 }
 
-export default {
-  install,
-}
+// 暴露安装方法，用于全量引入,导出的对象必须具有 install，才能被 Vue.use() 方法安装
+export default install
+// 暴露安装方法，用于按需引入
+export { install, zylUseToast, zylUseFormValids, zylAttr, zylDemoBlock }
 ```
 
 以插件的方式使用组件：
@@ -330,11 +339,10 @@ npm link
 import Vue from 'vue'
 import ElementUI from 'element-ui' // 全局引入
 import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(ElementUI)
 
 // 引入zylUI组件
 import zylUI from '@zuiyouliao/zyl-ui'
-import '@zuiyouliao/zyl-ui/lib/index/index.css'
-
 // 注册组件库
 Vue.use(zylUI)
 ```
@@ -376,7 +384,6 @@ import zylUI from '../../packages'
 
 // 也可以引入zylUI组件打包产物 前提要 npm link
 // import zylUI from '@zuiyouliao/zyl-ui'
-// import '@zuiyouliao/zyl-ui/lib/index/index.css'
 
 export default ({ Vue }) => {
   Vue.use(ElementUI)
@@ -384,7 +391,7 @@ export default ({ Vue }) => {
 }
 ```
 
-## 发布组件到 npm
+#### 发布组件到 npm
 
 发布前，需要确保 `package.json` 中这些字段。
 

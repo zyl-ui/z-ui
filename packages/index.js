@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2020-04-27 13:37:08
  * @LastEditors: zhanghan
- * @LastEditTime: 2022-12-04 02:05:12
+ * @LastEditTime: 2022-12-04 18:28:43
  * @Descripttion: 全局安装方法
  */
 
@@ -11,12 +11,7 @@ import zylUseToast from './plugins/zylUseToast'
 import zylUseFormValids from './plugins/zylUseFormValids'
 import zylUseFilters from './plugins/zylUseFilters'
 import zylUseTools from './plugins/zylUseTools'
-const plugins = [
-  zylUseToast, 
-  zylUseFormValids, 
-  zylUseFilters, 
-  zylUseTools
-]
+const plugins = [zylUseToast, zylUseFormValids, zylUseFilters, zylUseTools]
 
 // 引入组件
 import zylAttr from './components/zylAttr'
@@ -40,7 +35,7 @@ const install = function (Vue) {
   })
 }
 
-// 判断是否是直接引入文件
+// 判断是否是直接引入文件,有可能组件会通过script标签引入，如<script src='https://xxx/zyl-ui'></script>
 if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue)
 }
