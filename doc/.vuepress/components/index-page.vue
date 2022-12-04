@@ -60,18 +60,20 @@
       </div>
     </div>
     <!-- 文档密码输入框 -->
-    <div @keyup.enter="login" v-if="!hasPass">
-      <div>
-        <div>
+    <div class="apt-password-wrap" @keyup.enter="login" v-if="!hasPass">
+      <div class="apt-password-login-form">
+        <div class="apt-password-wrap-form">
           <h1>最有料 UI组件库</h1>
-          <div @keyup.enter="login">
+          <div class="apt-password-wrap-form-input" @keyup.enter="login">
             <input
               type="password"
               name="password"
               v-model="password"
               placeholder="请输入密码查看文档"
             />
-            <button type="button" @click="login">查看文档</button>
+            <button type="button" class="apt-password-login-btn" @click="login">
+              查看文档
+            </button>
           </div>
           <small
             ><a target="">{{ errorMsg }}</a>
@@ -115,6 +117,11 @@ export default {
 
 <style scoped lang="scss">
 @import './index-page.css';
+
+* {
+  transition: all 0.1s;
+}
+
 @mixin styling($range) {
   .home-page {
     background-color: #fff;
@@ -160,7 +167,7 @@ export default {
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: space-evenly;
+        justify-content: center;
         .iconWrapper {
           margin-left: 15vw * $range;
           .iconfont {
@@ -185,7 +192,7 @@ export default {
               '微软雅黑', STXihei, '华文细黑', serif;
           }
           p {
-            font-size: 3.5vw * $range;
+            font-size: 4vw * $range;
             color: white;
             font-weight: bold;
             font-family: 'Times New Roman', Georgia, 'SimSun', '宋体',
