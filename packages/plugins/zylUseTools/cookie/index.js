@@ -2,10 +2,16 @@
  * @Author: zhanghan
  * @Date: 2022-11-27 17:15:53
  * @LastEditors: zhanghan
- * @LastEditTime: 2022-11-30 02:23:21
+ * @LastEditTime: 2022-12-04 14:12:22
  * @Descripttion: cookie操作相关插件
  */
 
+/**
+ * 设置cookie
+ * @param {string} key cookie标识
+ * @param {string} value 要复制的内容
+ * @param {number} iDay 设置cookie过期的天数
+ */
 export const setCookie = (key, value, iDay) => {
   var oDate = new Date()
   oDate.setDate(oDate.getDate() + iDay)
@@ -16,10 +22,18 @@ export const setCookie = (key, value, iDay) => {
   document.cookie = key + '=' + value + ';expires=' + oDate + ';path=/'
 }
 
+/**
+ * 删除cookie
+ * @param {string} key cookie标识
+ */
 export const removeCookie = (key) => {
   this.setCookie(key, '', -1) // 这里只需要把Cookie保质期退回一天便可以删除
 }
 
+/**
+ * 获取cookie
+ * @param {string} key cookie标识
+ */
 export const getCookie = (key) => {
   var cookieArr = document.cookie.split('; ')
   for (var i = 0; i < cookieArr.length; i++) {
@@ -39,6 +53,9 @@ export const getCookie = (key) => {
   return false
 }
 
+/**
+ * 清除所有cookie
+ */
 export const clearCookie = () => {
   var keys = document.cookie.match(/[^ =;]+(?==)/g)
   if (keys) {

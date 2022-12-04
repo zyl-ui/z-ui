@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2022-11-28 09:13:53
  * @LastEditors: zhanghan
- * @LastEditTime: 2022-11-29 00:19:41
+ * @LastEditTime: 2022-12-04 16:29:13
  * @Descripttion: 生产环境配置
  */
 
@@ -65,9 +65,11 @@ const buildConfig = {
   },
   css: {
     sourceMap: false,
-    extract: {
-      filename: '[name]/index.css', //主入口样式文件名称
-    },
+    // 是否将组件中的css提取至一个独立的css，库构建时可以设置为false，免得用户需要自己导入css
+    extract: false,
+    // extract: {
+    //   filename: '[name]/index.css',
+    // },
   },
   chainWebpack: (config) => {
     // 一些构建优化

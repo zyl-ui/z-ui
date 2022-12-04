@@ -2,23 +2,20 @@
  * @Author: zhanghan
  * @Date: 2022-11-27 17:15:53
  * @LastEditors: zhanghan
- * @LastEditTime: 2022-11-30 02:29:16
+ * @LastEditTime: 2022-12-04 15:37:28
  * @Descripttion: 工具相关插件
  */
-import { setCookie, getCookie, removeCookie, clearCookie } from './cookie'
-import { fileDownload, getUrlFileName } from './file'
-import copyText from './copyText'
+
+import * as cookieTool from './cookie'
+import * as fileTool from './file'
+import * as copyTextTool from './copyText'
 
 export default {
   install(Vue) {
     Vue.prototype.$zylUseTools = {
-      setCookie,
-      getCookie,
-      removeCookie,
-      clearCookie,
-      fileDownload,
-      getUrlFileName,
-      copyText,
+      ...cookieTool,
+      ...fileTool,
+      ...copyTextTool,
     }
   },
 }

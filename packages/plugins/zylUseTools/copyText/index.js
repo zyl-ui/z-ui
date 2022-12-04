@@ -2,11 +2,15 @@
  * @Author: zhanghan
  * @Date: 2022-11-27 17:15:53
  * @LastEditors: zhanghan
- * @LastEditTime: 2022-11-30 01:51:57
+ * @LastEditTime: 2022-12-04 15:37:03
  * @Descripttion: 复制操作相关插件
  */
 
-export default function copyText(content) {
+/**
+ * 复制传入的内容
+ * @param {string} content 要复制的内容
+ */
+export function copyText(content) {
   if (!document.queryCommandSupported('copy')) {
     //为了兼容有些浏览器 queryCommandSupported 的判断
     this.$zylUseToast({

@@ -2,11 +2,18 @@
  * @Author: zhanghan
  * @Date: 2022-11-30 01:42:05
  * @LastEditors: zhanghan
- * @LastEditTime: 2022-11-30 01:42:12
+ * @LastEditTime: 2022-12-04 15:47:08
  * @Descripttion: 文件相关
  */
-// 文件下载函数 支持url/blob/base64格式
-export const fileDownload = (file, name) => {
+
+import { atob } from './pollify'
+
+/**
+ * 文件下载函数
+ * @param {string | blob} file 文件，支持传入url/blob/base64格式
+ * @param {string} name 文件名称，需要带后缀如：abc.jpg（为url可不传入，会自动获取文件名）
+ */
+export function fileDownload(file, name) {
   if (!file) {
     throw new Error('文件不能为空')
   }
@@ -24,23 +31,20 @@ export const fileDownload = (file, name) => {
     return
   }
 
-  // file是base64
+  if (!name) {
+    throw new Error('文件名不能为空')
+  }
+
+  // file是base64先转blob
   if (typeof file === 'string') {
-    const bstr = atob(file.split(',')[1])
-    let n = bstr.length
-    const u8arr = new Uint8Array(n)
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n)
-    }
-    file = new Blob([u8arr])
-    return
+    file = base64toBlob(file)
   }
 
   // file是blob
   if (window.navigator.msSaveBlob) {
     window.navigator.msSaveOrOpenBlob(file, name)
   } else {
-    const url = window.URL.createObjectURL(new Blob([file.data]))
+    const url = window.URL.createObjectURL(new Blob([file]))
     const link = document.createElement('a')
     link.style.display = 'none'
     link.href = url
@@ -51,9 +55,115 @@ export const fileDownload = (file, name) => {
   }
 }
 
-// 获链接文件名+后缀
-export const getUrlFileName = (url) => {
+/**
+ * 获链接文件名+后缀
+ * @param {string} url 文件地址
+ */
+export function getUrlFileName(url) {
   if (!url) return ''
   const file = url.split('/')
   return file[file.length - 1] || ''
+}
+
+/**
+ * Base64 转 Blob
+ * @param {string} base64String Blob格式数据
+ */
+export function base64toBlob(base64String) {
+  var arr = base64String.split(','),
+    mime = arr[0].match(/:(.*?);/)[1],
+    bstr = atob(arr[1]),
+    n = bstr.length,
+    u8arr = new Uint8Array(n)
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n)
+  }
+  return new Blob([u8arr], {
+    type: mime,
+  })
+}
+
+/**
+ * Blob 转 Base64
+ * @param {blob} file Blob格式数据
+ */
+export function blobToBase64(file) {
+  return new Promise(function (resolve, reject) {
+    let reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = function () {
+      resolve(reader.result)
+    }
+    reader.onerror = function (error) {
+      reject(error)
+    }
+  })
+}
+
+/**
+ * 压缩base64图片
+ * @param {string} base64String base64格式数据
+ * @param {number} w 宽度
+ * @param {number} quality 文件质量（0~1）
+ */
+export function compressImg(base64String, w, quality) {
+  var getMimeType = function (urlData) {
+    var arr = urlData.split(',')
+    var mime = arr[0].match(/:(.*?);/)[1]
+    return mime
+  }
+  var newImage = new Image()
+  var imgWidth, imgHeight
+
+  var promise = new Promise(function (resolve) {
+    newImage.onload = resolve
+  })
+  newImage.src = base64String
+  return promise.then(function () {
+    imgWidth = newImage.width
+    imgHeight = newImage.height
+    var canvas = document.createElement('canvas')
+    var ctx = canvas.getContext('2d')
+    if (Math.max(imgWidth, imgHeight) > w) {
+      if (imgWidth > imgHeight) {
+        canvas.width = w
+        canvas.height = (w * imgHeight) / imgWidth
+      } else {
+        canvas.height = w
+        canvas.width = (w * imgWidth) / imgHeight
+      }
+    } else {
+      canvas.width = imgWidth
+      canvas.height = imgHeight
+    }
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.drawImage(newImage, 0, 0, canvas.width, canvas.height)
+    var base64 = canvas.toDataURL(getMimeType(base64String), quality)
+    return base64
+  })
+}
+
+/**
+ * 获取base64文件大小，返回KB数字
+ * @param {string} base64String base64格式数据
+ */
+export function getBase64Size(base64String) {
+  var str = base64String.split(',')[1]
+  var equalIndex = str.indexOf('=')
+  if (str.indexOf('=') > 0) {
+    str = str.substring(0, equalIndex)
+  }
+  var strLength = str.length
+  var fileLength = parseInt(strLength - (strLength / 8) * 2)
+  // 由字节转换为KB
+  var size = ''
+  size = (fileLength / 1024).toFixed(2)
+  var sizeStr = size + '' //转成字符串
+  var index = sizeStr.indexOf('.') //获取小数点处的索引
+  var dou = sizeStr.substring(index + 1, 2) //获取小数点后两位的值
+  if (dou == '00') {
+    //判断后两位是否为00，如果是则删除00
+    return sizeStr.substring(0, index) + sizeStr.substring(index + 3, 2)
+  }
+  return parseInt(size)
 }

@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2020-04-27 13:37:08
  * @LastEditors: zhanghan
- * @LastEditTime: 2022-11-30 10:31:15
+ * @LastEditTime: 2022-12-04 02:05:12
  * @Descripttion: 全局安装方法
  */
 
@@ -11,7 +11,12 @@ import zylUseToast from './plugins/zylUseToast'
 import zylUseFormValids from './plugins/zylUseFormValids'
 import zylUseFilters from './plugins/zylUseFilters'
 import zylUseTools from './plugins/zylUseTools'
-const plugins = [zylUseToast, zylUseFormValids, zylUseFilters, zylUseTools]
+const plugins = [
+  zylUseToast, 
+  zylUseFormValids, 
+  zylUseFilters, 
+  zylUseTools
+]
 
 // 引入组件
 import zylAttr from './components/zylAttr'
