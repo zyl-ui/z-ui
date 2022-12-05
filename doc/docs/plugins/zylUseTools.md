@@ -23,6 +23,10 @@ Vue.use(zylUseTools)
 
 `this.$zylUseTools[工具类方法名](参数)`
 
+### 用途
+
+可以用于方便快捷的使用一些常用工具类
+
 ### 方法
 
 <zylUseTools-func></zylUseTools-func>

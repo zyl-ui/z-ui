@@ -73,6 +73,10 @@ console.log(oprtTime) // 2021-05-14 09:33
 </el-table-column>
 ```
 
+### 用途
+
+可以用于过滤字段和枚举一些数据字典的场景
+
 ### 方法
 
 <zylUseFilters-func></zylUseFilters-func>

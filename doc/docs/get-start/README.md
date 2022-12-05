@@ -76,7 +76,7 @@ Vue.use(zylSpread)
 
 // 以上写法等同于以下写法，但以下写法不需要借助插件，你也可以这么用
 // 按需引入(不需要借助babel-plugin-component插件)
-import zylSyncButton from '@zuiyouliao/zyl-ui/lib/zylSyncButton/index.js' //这个组件没有css
+import zylSyncButton from '@zuiyouliao/zyl-ui/lib/zylSyncButton/index.js'
 import zylSpread from '@zuiyouliao/zyl-ui/lib/zylSpread/index.js'
 Vue.use(zylSyncButton)
 Vue.use(zylSpread)

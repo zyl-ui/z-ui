@@ -25,7 +25,7 @@ sidebarDepth: 2
 ```vue
 <template>
   <div>
-    <el-button type="primary" :loading="editLoading">编辑<el/-button>
+    <el-button type="primary" :loading="editLoading" @click="handleEdit">编辑<el/-button>
   </div>
 </template>
 
@@ -33,19 +33,19 @@ sidebarDepth: 2
 export default {
   data() {
     return {
-        editLoading: false
+      editLoading: false
     }
   },
   methods: {
-    handleSearch() {
-        this.editLoading =true
-        // 模拟请求
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-            this.editLoading =false
-            resolve()
-            }, 2000)
-        })
+    handleEdit() {
+      this.editLoading =true
+      // 模拟请求
+      new Promise((resolve, reject) => {
+          setTimeout(() => {
+          this.editLoading =false
+          resolve()
+          }, 2000)
+      })
     },
   },
 }

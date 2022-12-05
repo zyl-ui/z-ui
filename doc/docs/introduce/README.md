@@ -96,7 +96,7 @@ packages # 需要打包的内容
 babel.config.js # babel转译的配置文件
 jsconfig.json # 优化ide开发体验，比如文件内地址关联跳转等
 package.json # 依赖包、脚本指令等重要信息
-pnpm-lock.yaml # pnpm 锁定包版本
+yarn.lock # yarn 锁定包版本
 README.md  # 项目说明文档
 vue.config.js  #vue-cli和webpack打包相关配置项
 ```

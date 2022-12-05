@@ -314,6 +314,7 @@ export default {
 
   div[class*='language-']::before {
     right: 30px;
+    font-size: 12px;
   }
 }
 </style>

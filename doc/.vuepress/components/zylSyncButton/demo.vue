@@ -1,6 +1,6 @@
 <template>
   <div>
-    <zyl-sync-button type="primary" @click="handleSearch">
+    <zyl-sync-button type="primary" @click="handleEdit">
       异步loading按钮
     </zyl-sync-button>
   </div>
@@ -12,7 +12,7 @@ export default {
     return {}
   },
   methods: {
-    handleSearch() {
+    handleEdit() {
       // 模拟请求
       return new Promise((resolve, reject) => {
         setTimeout(() => {
