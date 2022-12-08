@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2022-11-28 09:13:53
  * @LastEditors: zhanghan
- * @LastEditTime: 2022-12-04 16:29:13
+ * @LastEditTime: 2022-12-08 14:40:29
  * @Descripttion: 生产环境配置
  */
 
@@ -73,12 +73,18 @@ const buildConfig = {
   },
   chainWebpack: (config) => {
     // 一些构建优化
+    // 删除splitChunks，因为每个组件是独立打包，不需要抽离每个组件的公共js出来。
     config.optimization.delete('splitChunks')
+    // 删除copy，不要复制public文件夹内容到lib文件夹中。
     config.plugins.delete('copy')
+    // 删除preload以及prefetch，因为不生成html页面，所以这两个也没用。
     config.plugins.delete('preload')
     config.plugins.delete('prefetch')
+    // 删除html，只打包组件，不生成html页面。
     config.plugins.delete('html')
+    // 删除hmr，删除热更新。
     config.plugins.delete('hmr')
+    // 删除自动加上的入口App。
     config.entryPoints.delete('app')
   },
 }
