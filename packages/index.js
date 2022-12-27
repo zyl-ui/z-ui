@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2020-04-27 13:37:08
  * @LastEditors: zhanghan
- * @LastEditTime: 2022-12-04 18:28:43
+ * @LastEditTime: 2022-12-26 14:18:57
  * @Descripttion: 全局安装方法
  */
 
@@ -18,8 +18,16 @@ import zylAttr from './components/zylAttr'
 import zylDemoBlock from './components/zylDemoBlock'
 import zylSpread from './components/zylSpread'
 import zylSyncButton from './components/zylSyncButton'
+import zylUploadFile from './components/zylUploadFile'
 import zylToast from './components/zylToast'
-const components = [zylAttr, zylDemoBlock, zylSpread, zylSyncButton, zylToast]
+const components = [
+  zylAttr,
+  zylDemoBlock,
+  zylSpread,
+  zylSyncButton,
+  zylUploadFile,
+  zylToast,
+]
 
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，则所有的组件都将被注册
 const install = function (Vue) {
@@ -53,5 +61,6 @@ export {
   zylDemoBlock,
   zylSpread,
   zylSyncButton,
+  zylUploadFile,
   zylToast,
 }

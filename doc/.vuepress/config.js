@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2022-11-24 11:07:14
  * @LastEditors: zhanghan
- * @LastEditTime: 2022-12-04 21:06:12
+ * @LastEditTime: 2022-12-26 15:43:46
  * @Descripttion:
  */
 module.exports = {
@@ -37,6 +37,7 @@ module.exports = {
           'docs/components/zylSyncButton.md',
           'docs/components/zylToast.md',
           'docs/components/zylSpread.md',
+          'docs/components/zylUploadFile.md',
         ],
         collapsable: false, //默认展开
       },

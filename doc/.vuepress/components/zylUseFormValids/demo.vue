@@ -35,6 +35,14 @@
           class="dataPicker"
         />
       </el-form-item>
+      <el-form-item label="出生日期" prop="brdy">
+        <el-date-picker
+          v-model="ruleForm.brdy"
+          :picker-options="pickerOptions"
+          type="date"
+          placeholder="选择日期"
+        />
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">
           提交
@@ -56,6 +64,15 @@ export default {
         code: '',
         begntime: '',
         endtime: '',
+        brdy: '',
+      },
+      pickerOptions: {
+        // < 当前日期之前不可选（不含当前日期）
+        // <= 当前日期之前不可选（含当前日期）
+        // > 当前日期之后不可选（不含当前日期）
+        // >= 当前日期之后不可选（含当前日期）
+        // = 只能选择当前日期
+        ...this.$zylUseFormValids.validateDisabledDate('>'), //当前时间之后不可选（不包含当前日期）
       },
       rules: {
         name: [
@@ -114,6 +131,13 @@ export default {
           endLabel: '结束时间',
           required: false,
         }),
+        brdy: [
+          {
+            required: true,
+            message: '请选择出生日期',
+            trigger: 'change',
+          },
+        ],
       },
     }
   },

@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2020-05-07 14:40:53
  * @LastEditors: zhanghan
- * @LastEditTime: 2022-11-30 12:52:35
+ * @LastEditTime: 2022-12-27 20:32:29
  * @Descripttion: 自定义表单校验规则
  */
 import {
@@ -251,6 +251,47 @@ export const validateTimeRange = ({
         }),
       },
     ],
+  }
+}
+
+/**
+ * 日期选择器过滤日期函数（当前选择器日期限制在某个需要的日期之前或之后）
+ * @param {string} type // 必选项：
+ * < 当前日期之前不可选（不含当前日期），
+ * <= 当前日期之前不可选（含当前日期），
+ * > 当前日期之后不可选（不含当前日期），
+ * >= 当前日期之后不可选（含当前日期），
+ * = 只能选择当前日期
+ * @param {string} compareDate //需要的日期字符串 格式如下 2020-06-01，不传默认为当前日期
+ */
+export const validateDisabledDate = (type, compareDate = '') => {
+  return {
+    disabledDate: (time) => {
+      let compareTime
+      // 判断是否有传入比较日期
+      if (compareDate) {
+        compareTime = new Date(compareDate).getTime()
+      } else {
+        //不传默认为当前日期
+        const strDate = new Date().toLocaleDateString()
+        compareTime = new Date(strDate).getTime()
+      }
+      const thatTime = time.getTime()
+      switch (type) {
+        case '<':
+          return thatTime < compareTime
+        case '<=':
+          return thatTime <= compareTime
+        case '>':
+          return thatTime > compareTime
+        case '>=':
+          return thatTime >= compareTime
+        case '=':
+          return thatTime < compareTime || thatTime > compareTime
+        default:
+          return true
+      }
+    },
   }
 }
 

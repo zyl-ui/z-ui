@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2020-04-30 09:52:45
  * @LastEditors: zhanghan
- * @LastEditTime: 2022-11-30 00:40:09
+ * @LastEditTime: 2022-12-27 14:38:38
  * @Descripttion: 组件属性表
  -->
 <template>
@@ -27,37 +27,9 @@
 export default {
   name: 'zylAttr',
   props: {
-    tableData: {
+    headData: {
       type: Array,
-      default: () => [],
-    },
-  },
-  computed: {
-    // 判断传入数据是否有相关字段名称
-    fitterHeadData() {
-      const list = this.headData.filter((head) => {
-        for (let i = 0; i < this.tableData.length; i++) {
-          const keys = Object.keys(this.tableData[i])
-          return keys.includes(head.prop)
-        }
-      })
-      return list
-    },
-    // 过滤传入项
-    fitterTableData() {
-      const list = this.tableData.map((item) => {
-        const keys = Object.keys(item)
-        keys.forEach((key) => {
-          item[key] = item[key].toString() || '——'
-        })
-        return item
-      })
-      return list
-    },
-  },
-  data() {
-    return {
-      headData: [
+      default: () => [
         {
           prop: 'param',
           label: '参数',
@@ -99,7 +71,39 @@ export default {
           align: 'left',
         },
       ],
-    }
+    },
+    tableData: {
+      type: Array,
+      default: () => [],
+    },
+  },
+  computed: {
+    // 判断传入数据是否有相关字段名称
+    fitterHeadData() {
+      // 根据传入列表数据的第一项的key顺序进行排序
+      let sortList = []
+      const sortKeys = Object.keys(this.tableData[0] || {}) || []
+      sortKeys.forEach((key) => {
+        this.headData.forEach((item) => {
+          if (key === item.prop) sortList.push(item)
+        })
+      })
+      return sortList
+    },
+    // 过滤传入项
+    fitterTableData() {
+      const list = this.tableData.map((item) => {
+        const keys = Object.keys(item)
+        keys.forEach((key) => {
+          item[key] = item[key].toString() || '——'
+        })
+        return item
+      })
+      return list
+    },
+  },
+  data() {
+    return {}
   },
 }
 </script>
