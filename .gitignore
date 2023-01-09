@@ -4,7 +4,7 @@ node_modules
 /lib
 .cache
 .temp
-!doc/.vuepress/dist/
+doc/.vuepress/dist/
 
 # local env files
 .env.local

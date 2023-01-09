@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2021-08-10 13:51:18
  * @LastEditors: zhanghan
- * @LastEditTime: 2022-12-27 19:37:11
+ * @LastEditTime: 2023-01-06 18:17:48
  * @Descripttion: 文件上传通用组件
 -->
 <template>
@@ -27,7 +27,13 @@
       :class="{ hideAdd: uploadAddDisabled }"
     >
       <!-- 选择文件上传区域 -->
-      <span slot="trigger" v-if="!Object.keys($slots).includes('trigger')">
+      <span
+        slot="trigger"
+        v-if="!Object.keys($slots).includes('trigger')"
+        :class="{
+          disabled: uploadDisabled,
+        }"
+      >
         <i
           class="el-icon-plus"
           v-if="$attrs['list-type'] === 'picture-card'"
@@ -40,6 +46,7 @@
           "
           size="small"
           icon="el-icon-upload2"
+          :disabled="uploadDisabled"
         >
           {{ btnName }}
         </el-button>
@@ -86,6 +93,7 @@ import {
   getUrlFileName,
   getExtensionFromBase64,
   blobToBase64,
+  getUUID,
 } from '../../../plugins/zylUseTools/file/index.js'
 export default {
   name: 'zylUploadFile',
@@ -209,6 +217,10 @@ export default {
     uploadAddDisabled() {
       return this.fileList.length >= this.limit
     },
+    // 是否禁用上传
+    uploadDisabled() {
+      return this.$attrs['disabled'] || this.$attrs['disabled'] === ''
+    }
   },
   watch: {
     fileUrlList: {
@@ -221,7 +233,7 @@ export default {
             if (typeof item === 'string' && this.onlyUrlListBack) {
               return {
                 url: item,
-                uid: this.getUID(),
+                uid: getUUID(),
                 name: this.changeBase64
                   ? `文件${index + 1}.${getExtensionFromBase64(item)}`
                   : getUrlFileName(item) || '',
@@ -234,7 +246,7 @@ export default {
               return {
                 ...item,
                 url: eval(`item.${this.fileItemColum.url}`) || '',
-                uid: eval(`item.${this.fileItemColum.uid}`) || this.getUID(),
+                uid: eval(`item.${this.fileItemColum.uid}`) || getUUID(),
                 name: eval(`item.${this.fileItemColum.name}`) || '',
               }
             }
@@ -363,19 +375,6 @@ export default {
         this.onlyUrlListBack ? this.fileUrlList : this.fileList
       )
     },
-    // 获取uuid
-    getUID() {
-      var s = []
-      var hexDigits = '0123456789abcdef'
-      for (var i = 0; i < 36; i++) {
-        s[i] = hexDigits.substring(Math.floor(Math.random() * 0x10), 1)
-      }
-      s[14] = '4' // bits 12-15 of the time_hi_and_version field to 0010
-      s[19] = hexDigits.substring((s[19] & 0x3) | 0x8, 1) // bits 6-7 of the clock_seq_hi_and_reserved to 01
-      s[8] = s[13] = s[18] = s[23] = '-'
-      var uuid = s.join('')
-      return uuid
-    },
     // 浏览图片
     handlePictureCardPreview(file) {
       // 原方法不能被覆盖，留给用户操作
@@ -407,6 +406,12 @@ export default {
 
 <style lang="scss" scoped>
 .upload-wrap {
+  .disabled {
+    cursor: not-allowed;
+    width: 100%;
+    display: table;
+  }
+
   .el-upload__tip {
     text-align: left;
     > div {
@@ -414,6 +419,7 @@ export default {
       margin: 5px 0;
     }
   }
+  
   .error-text {
     color: #f56c6c;
     font-size: 12px;
