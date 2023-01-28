@@ -2,9 +2,10 @@
  * @Author: zhanghan
  * @Date: 2021-08-10 13:51:18
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-01-06 18:17:48
+ * @LastEditTime: 2023-01-28 10:34:46
  * @Descripttion: 文件上传通用组件
 -->
+
 <template>
   <div class="upload-wrap">
     <el-upload
@@ -31,7 +32,7 @@
         slot="trigger"
         v-if="!Object.keys($slots).includes('trigger')"
         :class="{
-          disabled: uploadDisabled,
+          disabled: uploadDisabled
         }"
       >
         <i
@@ -41,8 +42,8 @@
         <el-button
           v-if="
             !$attrs['list-type'] ||
-            $attrs['list-type'] === 'text' ||
-            $attrs['list-type'] === 'picture'
+              $attrs['list-type'] === 'text' ||
+              $attrs['list-type'] === 'picture'
           "
           size="small"
           icon="el-icon-upload2"
@@ -93,19 +94,19 @@ import {
   getUrlFileName,
   getExtensionFromBase64,
   blobToBase64,
-  getUUID,
+  getUUID
 } from '../../../plugins/zylUseTools/file/index.js'
 export default {
   name: 'zylUploadFile',
   props: {
     value: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     // 上传的地址
     action: {
       type: String,
-      default: '',
+      default: ''
     },
     // 上传成功、删除回调是否只回传url/base64列表，不回传其他信息，默认false关闭
     // 打开后v-model绑定的数据格式为纯数组：['url1', 'url2', 'url2']
@@ -113,66 +114,66 @@ export default {
     // 若对象格式字段名称不符合，可通过 fileItemColum 配置进行转换
     onlyUrlListBack: {
       type: Boolean,
-      default: false,
+      default: false
     },
     // 需要选取的文件信息字段
     fileInfoColumn: {
       type: String,
-      default: 'entity',
+      default: 'entity'
     },
     // 当onlyUrlListBack关闭时生效，确保选取的字段符合组件接收的数据格式
     fileItemColum: {
       default: () => ({
         name: 'name',
         url: 'url',
-        uid: 'uid',
-      }),
+        uid: 'uid'
+      })
     },
     // 上传按钮名称（非卡片样式时生效）
     btnName: {
       type: String,
-      default: '上传文件',
+      default: '上传文件'
     },
     // 限制个数
     limit: {
       type: Number,
-      default: 1,
+      default: 1
     },
     // 限制大小
     maxSize: {
       type: Number,
-      default: 5,
+      default: 5
     },
     // 是否显示上传提示
     showTip: {
       type: Boolean,
-      default: true,
+      default: true
     },
     // 错误消息提示
     errorMessage: {
       type: String,
-      default: '',
+      default: ''
     },
     // 支持的文件格式
     accept: {
       type: String,
-      default: '.jpeg, .jpg, .png, .doc, .docx, .pdf',
+      default: '.jpeg, .jpg, .png, .doc, .docx, .pdf'
     },
     // 是否转换输出数据为base64
     changeBase64: {
       type: Boolean,
-      default: false,
+      default: false
     },
     // 是否显示备注
     notesFlag: {
       type: Boolean,
-      default: false,
+      default: false
     },
     // 备注内容
     notes: {
       type: String,
-      default: '',
-    },
+      default: ''
+    }
   },
   data() {
     return {
@@ -181,7 +182,7 @@ export default {
       // 当前点击的url/base64
       nowImgUrl: '',
       // 检验是否通过上传前的规则校验
-      passCheck: true,
+      passCheck: true
     }
   },
   computed: {
@@ -194,7 +195,7 @@ export default {
       // 利用计算属性动态获取外部v-model绑定值
       get() {
         return this.value
-      },
+      }
     },
     // 通过获取文件地址列表
     fileUrlListStringOnly() {
@@ -236,7 +237,7 @@ export default {
                 uid: getUUID(),
                 name: this.changeBase64
                   ? `文件${index + 1}.${getExtensionFromBase64(item)}`
-                  : getUrlFileName(item) || '',
+                  : getUrlFileName(item) || ''
               }
             }
             // onlyUrlListBack关闭时，保留原数据，并对必要字段进行补充
@@ -247,7 +248,7 @@ export default {
                 ...item,
                 url: eval(`item.${this.fileItemColum.url}`) || '',
                 uid: eval(`item.${this.fileItemColum.uid}`) || getUUID(),
-                name: eval(`item.${this.fileItemColum.name}`) || '',
+                name: eval(`item.${this.fileItemColum.name}`) || ''
               }
             }
             // 匹配不到上面的条件说明数据格式有误
@@ -262,8 +263,8 @@ export default {
             }
           })
         }
-      },
-    },
+      }
+    }
   },
   methods: {
     // 文件列表移除文件时的钩子
@@ -319,7 +320,7 @@ export default {
       if (this.accept.indexOf(ext.toLowerCase()) === -1) {
         this.$message({
           type: 'warning',
-          message: `${filename} 非指定的文件拓展名，请上传正确的文件类型！`,
+          message: `${filename} 非指定的文件拓展名，请上传正确的文件类型！`
         })
         this.passCheck = false
       }
@@ -327,7 +328,7 @@ export default {
       if (file.size > this.maxSize * 1024 * 1024) {
         this.$message({
           type: 'warning',
-          message: `上传的文件 ${filename} 超过了${this.maxSize}M，请重新上传！`,
+          message: `上传的文件 ${filename} 超过了${this.maxSize}M，请重新上传！`
         })
         this.passCheck = false
       }
@@ -399,8 +400,8 @@ export default {
         `当前限制选择 ${this.limit} 个文件，本次选择了 ${files.length} 个文件，
           共选择了 ${files.length + fileList.length} 个文件`
       )
-    },
-  },
+    }
+  }
 }
 </script>
 
@@ -419,7 +420,7 @@ export default {
       margin: 5px 0;
     }
   }
-  
+
   .error-text {
     color: #f56c6c;
     font-size: 12px;

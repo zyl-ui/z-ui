@@ -1,29 +1,31 @@
 # zyl-ui
 
-## Project setup
+### 安装
 
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### 启动文档演示（推荐，可边写文档演示边调试）
+
+```
+yarn run doc:dev
+```
+
+### 启动本地调试
 
 ```
 yarn run serve
 ```
 
-### Compiles and minifies for production
+### 打包成 npm 组件库
 
 ```
 yarn run build
 ```
 
-### Lints and fixes files
+### 打包文档演示
 
 ```
-yarn run lint
+yarn run doc:build
 ```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).

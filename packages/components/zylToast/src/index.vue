@@ -1,3 +1,11 @@
+<!--
+ * @Author: zhanghan
+ * @Date: 2020-04-30 01:04:33
+ * @LastEditors: zhanghan
+ * @LastEditTime: 2023-01-28 10:34:36
+ * @Descripttion: 消息提示组件
+ -->
+
 <template>
   <div class="wrapper" :class="toastClasses">
     <div class="zyl-toast" ref="toast">
@@ -6,9 +14,9 @@
         <div v-else v-html="$slots.default[0]"></div>
       </div>
       <div class="line" ref="line"></div>
-      <span v-if="closeButton" @click="onClickClose" class="close">{{
-        this.closeButton.text
-      }}</span>
+      <span v-if="closeButton" @click="onClickClose" class="close">
+        {{ this.closeButton.text }}
+      </span>
     </div>
   </div>
 </template>
@@ -22,7 +30,7 @@ export default {
       default: 2,
       validator(value) {
         return value === false || typeof value === 'number'
-      },
+      }
     },
     closeButton: {
       type: Object,
@@ -31,21 +39,21 @@ export default {
           text: '关闭',
           callback: () => {
             this.close()
-          },
+          }
         }
-      },
+      }
     },
     enableHtml: {
       type: Boolean,
-      default: false,
+      default: false
     },
     position: {
       type: String,
       default: 'top',
       validator(value) {
         return ['top', 'bottom', 'middle', 'right', 'left'].indexOf(value) >= 0
-      },
-    },
+      }
+    }
   },
   mounted() {
     this.updateStyle()
@@ -54,7 +62,7 @@ export default {
   computed: {
     toastClasses() {
       return { [`toast-position-${this.position}`]: true }
-    },
+    }
   },
   methods: {
     execAutoClose() {
@@ -82,8 +90,8 @@ export default {
       if (this.closeButton && typeof this.closeButton.callback === 'function') {
         this.closeButton.callback()
       }
-    },
-  },
+    }
+  }
 }
 </script>
 

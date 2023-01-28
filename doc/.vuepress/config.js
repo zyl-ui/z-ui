@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2022-11-24 11:07:14
  * @LastEditors: zhanghan
- * @LastEditTime: 2022-12-26 15:43:46
+ * @LastEditTime: 2023-01-28 14:40:49
  * @Descripttion:
  */
 module.exports = {
@@ -15,43 +15,45 @@ module.exports = {
       'link',
       {
         rel: 'icon',
-        href: '/favicon.ico',
-      },
-    ],
+        href: '/favicon.ico'
+      }
+    ]
   ],
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
-      { text: 'GitLab', link: 'http://192.168.140.130:8099/zhanghan/zyl-ui' },
+      { text: 'GitLab', link: 'http://192.168.140.130:8099/zhanghan/zyl-ui' }
     ],
     sidebar: [
       'docs/introduce/',
       {
         title: '入门',
         children: ['docs/install/', 'docs/get-start/'],
-        collapsable: false, //默认展开
+        collapsable: false //默认展开
       },
       {
         title: '通用业务组件',
         children: [
+          'docs/components/zylTitle.md',
           'docs/components/zylSyncButton.md',
           'docs/components/zylToast.md',
           'docs/components/zylSpread.md',
           'docs/components/zylUploadFile.md',
+          'docs/components/zylFileViewer.md'
         ],
-        collapsable: false, //默认展开
+        collapsable: false //默认展开
       },
       {
         title: '通用工具函数',
         children: [
           'docs/plugins/zylUseFormValids.md',
           'docs/plugins/zylUseFilters.md',
-          'docs/plugins/zylUseTools.md',
+          'docs/plugins/zylUseTools.md'
         ],
-        collapsable: false, //默认展开
-      },
+        collapsable: false //默认展开
+      }
     ],
     logo: '/favicon.ico',
-    lastUpdated: '上次更新', // string | boolean
-  },
+    lastUpdated: '上次更新' // string | boolean
+  }
 }

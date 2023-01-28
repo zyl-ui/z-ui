@@ -2,9 +2,10 @@
  * @Author: zhanghan
  * @Date: 2020-04-28 13:53:49
  * @LastEditors: zhanghan
- * @LastEditTime: 2022-11-29 20:17:28
- * @Descripttion: 
+ * @LastEditTime: 2023-01-28 10:32:34
+ * @Descripttion: 折叠组件
  -->
+ 
 <template>
   <div class="contentWrapper">
     <div class="componentsMessage">
@@ -25,16 +26,16 @@ export default {
   props: {
     duration: {
       type: [Number, String],
-      default: '500',
-    },
+      default: '500'
+    }
   },
   data() {
     return {
-      showFooter: false,
+      showFooter: false
     }
   },
   computed: {},
-  methods: {},
+  methods: {}
 }
 </script>
 

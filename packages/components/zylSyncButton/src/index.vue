@@ -2,8 +2,8 @@
  * @Author: zhanghan
  * @Date: 2020-04-30 01:04:33
  * @LastEditors: zhanghan
- * @LastEditTime: 2022-11-27 03:59:46
- * @Descripttion: 
+ * @LastEditTime: 2023-01-28 10:32:21
+ * @Descripttion: 异步按钮组件
  -->
 
 <template>
@@ -17,7 +17,7 @@ export default {
   name: 'zylSyncButton',
   data() {
     return {
-      loading: false,
+      loading: false
     }
   },
   methods: {
@@ -32,8 +32,8 @@ export default {
       } else {
         this.loading = false
       }
-    },
-  },
+    }
+  }
 }
 </script>
 

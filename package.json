@@ -6,14 +6,14 @@
   "license": "MIT",
   "description": "一个基于 Vue 和 elementUI 的 最有料 UI PC端业务组件库",
   "directories": {
-    "doc": "docs",
+    "doc": "doc",
     "example": "examples",
     "lib": "lib"
   },
   "files": [
     "packages",
     "lib",
-    "docs"
+    "doc"
   ],
   "main": "lib/index",
   "scripts": {
@@ -23,9 +23,7 @@
     "doc:dev": "vuepress dev doc --temp .temp",
     "doc:build": "vuepress build doc"
   },
-  "dependencies": {
-    "async-validator": "1.11.5"
-  },
+  "dependencies": {},
   "peerDependencies": {
     "vue": "^2.6.14",
     "element-ui": "^2.15.11"
@@ -33,6 +31,7 @@
   "devDependencies": {
     "vue": "^2.6.14",
     "element-ui": "^2.15.11",
+    "async-validator": "1.11.5",
     "vuepress": "~1.8.2",
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.19.1",
@@ -43,21 +42,9 @@
     "eslint-plugin-vue": "^8.0.3",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.1.0",
-    "vue-template-compiler": "^2.6.14"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "@babel/eslint-parser"
-    },
-    "rules": {}
+    "vue-template-compiler": "^2.6.14",
+    "prettier": "^1.19.1",
+    "prettier-eslint": "^9.0.1"
   },
   "repository": {
     "type": "git",

@@ -1,3 +1,11 @@
+<!--
+ * @Author: zhanghan
+ * @Date: 2020-04-30 01:04:33
+ * @LastEditors: zhanghan
+ * @LastEditTime: 2023-01-28 10:34:09
+ * @Descripttion: 演示代码块组件
+ -->
+
 <template>
   <div
     class="demo-block"
@@ -43,8 +51,8 @@ export default {
       scrollParent: null,
       langConfig: {
         'hide-text': '隐藏代码',
-        'show-text': '显示代码',
-      },
+        'show-text': '显示代码'
+      }
     }
   },
 
@@ -52,7 +60,7 @@ export default {
     jsfiddle: Object,
     default() {
       return {}
-    },
+    }
   },
 
   methods: {
@@ -73,16 +81,16 @@ export default {
         e.target.nextSibling.nextSibling.firstChild.firstChild.innerText,
         () => {
           this.$zylUseToast({
-            message: '复制成功！',
+            message: '复制成功！'
           })
         },
         () => {
           this.$zylUseToast({
-            message: '复制失败！',
+            message: '复制失败！'
           })
         }
       )
-    },
+    }
   },
 
   computed: {
@@ -119,7 +127,7 @@ export default {
         )
       }
       return this.$el.getElementsByClassName('sourceCode')[0].clientHeight
-    },
+    }
   },
 
   watch: {
@@ -139,7 +147,7 @@ export default {
           this.scrollParent.addEventListener('scroll', this.scrollHandler)
         this.scrollHandler()
       }, 200)
-    },
+    }
   },
 
   mounted() {
@@ -154,7 +162,7 @@ export default {
 
   beforeDestroy() {
     this.removeScrollHandler()
-  },
+  }
 }
 </script>
 
