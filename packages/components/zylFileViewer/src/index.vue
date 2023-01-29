@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2020-04-30 01:04:33
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-01-29 13:40:47
+ * @LastEditTime: 2023-01-29 13:54:45
  * @Descripttion: 文件浏览组件
  -->
 
@@ -115,7 +115,7 @@ export default {
         if (checkBase64(item.url)) {
           const filename = encodeURIComponent(`文件${index + 1}`)
           const ext = getExtensionFromBase64(item.url)
-          const originFrom = encodeURIComponent(location.origin)
+          const originFrom = encodeURIComponent(window.location.origin)
           return `${this.viewerUrl}?name=${filename}.${ext}&from=${originFrom}`
         } else {
           return `${this.viewerUrl}?fileUrl=${item.url}${
