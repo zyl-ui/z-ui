@@ -5,6 +5,10 @@ sidebarDepth: 2
 
 # zylToast - 消息提示
 
+### 用途
+
+可用于展示弹出信息。
+
 ### 基础用法
 
 <zyl-demo-block>
@@ -15,10 +19,6 @@ sidebarDepth: 2
 <<< @/doc/.vuepress/components/zylToast/demo.vue
 :::
 </zyl-demo-block>
-
-### 用途
-
-可用于展示弹出信息。
 
 ### 属性
 

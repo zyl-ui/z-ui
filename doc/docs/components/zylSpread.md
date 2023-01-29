@@ -5,6 +5,10 @@ sidebarDepth: 2
 
 # zylSpread - 展开收起
 
+### 用途
+
+可用于需要隐藏和展示部分信息的场景，避免内容过多屏幕需要频繁滚动。
+
 ### 基础用法
 
 <zyl-demo-block>
@@ -15,10 +19,6 @@ sidebarDepth: 2
 <<< @/doc/.vuepress/components/zylSpread/demo.vue
 :::
 </zyl-demo-block>
-
-### 用途
-
-可用于需要隐藏和展示部分信息的场景，避免内容过多屏幕需要频繁滚动。
 
 ### 插槽
 
