@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2020-04-30 01:04:33
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-01-29 12:46:23
+ * @LastEditTime: 2023-01-29 13:40:47
  * @Descripttion: 文件浏览组件
  -->
 
@@ -146,7 +146,6 @@ export default {
   methods: {
     // iframe加载完毕事件
     loadMethod(e, index) {
-      console.log('e', e)
       this.fileListInfo[index].loading = false //关闭加载完成项的loading
       const url = this.fileListInfo[index].url
       // 如果是base64格式的需要转blob推流
