@@ -57,6 +57,21 @@ sidebarDepth: 2
 :::
 </zyl-demo-block>
 
+### 支持多格式文件浏览（需要开启 `useFileViewer = true` 和设置 `viewerUrl`）
+
+示例代码中文件查看器的地址 `viewerUrl` 属性值为演示地址，切勿直接用于生产。
+
+`viewerUrl` 入参使用方式请参考 [zylFileViewer - 文件浏览组件](./zylFileViewer.md)
+
+<zyl-demo-block>
+::: slot source
+<zylUploadFile-demo5></zylUploadFile-demo5>
+:::
+::: slot sourceCode
+<<< @/doc/.vuepress/components/zylUploadFile/demo5.vue
+:::
+</zyl-demo-block>
+
 ### 提示信息补充
 
 <zyl-demo-block>

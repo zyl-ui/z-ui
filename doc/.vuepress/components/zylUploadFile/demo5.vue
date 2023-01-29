@@ -1,0 +1,75 @@
+<!-- 支持多格式文件浏览 -->
+<template>
+  <div>
+    <p>
+      1、直传示例
+    </p>
+    <zyl-upload-file
+      v-model="fileList"
+      :action="apiUrl"
+      :headers="headers"
+      :limit="3"
+      onlyUrlListBack
+      useFileViewer
+      viewerUrl="https://home.sharecorner.top/file-viewer-doc/file-viewer/index.html"
+    />
+    <p>
+      2、非直传示例
+    </p>
+    <zyl-upload-file
+      v-model="fileList2"
+      :limit="3"
+      changeBase64
+      useFileViewer
+      viewerUrl="https://home.sharecorner.top/file-viewer-doc/file-viewer/index.html"
+    />
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      apiUrl: 'https://mock.apifox.cn/m1/2125861-0-default/uploadFile', //直传的api地址
+      headers: {
+        'ZYL-BIZ-TYPE': 'RISK'
+      }, //直传的头部信息（若您的接口不需要headers可去除headers配置项）
+      fileList: [
+        'https://home.sharecorner.top/fileTest/pdf.pdf',
+        'https://home.sharecorner.top/fileTest/word.docx',
+        'https://home.sharecorner.top/fileTest/pic.png'
+      ],
+      fileList2: [
+        {
+          name: '图片名称1.jpg',
+          url:
+            'data:image/jpeg;base64,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',
+          uid: 'fa39cb25b6d74e3e92b73704d0489e71'
+        },
+        {
+          name: '图片名称2.jpg',
+          url:
+            'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIQAAAAgCAYAAADTydBfAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAOMSURBVHhe7ZpZjoMwDEA5FufhOFwmd+Eu/WZiZ8FO7CyFmVYjfzyphSxeHqHSzPJ6vU7DSJgQBsOEMBgmhMEwIQyGCWEwTAiDMS/EsZ/rsp77IdxDjnNfl3PdD+FeH7ct57K58B332k5XjBkB11n38xDu/Q6Q93uxvtx2LiRPt7XqS8i9gL0H53T4aiEO584dvi/z680LEeKGvYao1k7zY2OxTsWcSMjFnZv/vDk/lglxoBBUEBUiRJgT15PGDvLdJ0QCCzbzBMTmlOs0GY/72H3xRdnivnBPrBPdQxPiGtcVutgD45rKuea+EJhMML/HSLFFIaYJxf57ITxQH3h1uDtCAOF+M57uwznPsBBYhNjYC+lY6xR2QiCN7rGIhfJjPyFEgjTrGj8jRCLMkeqgMZKDxne9Mogst96FeR2tyBKThS+EqE62x4Ro8MkTIvNrQvgC+aLhj8htw8/NJ7ABPc1uiTVFaHAW5U0hUKwYe/eE+0YhaPFb9ASBQkBx0pMG677XzPik+zXGf49Mng6JSlrS8DeFSGuNxQ5rfFoIcqznJFqm4vhO0DAmFvcqBCT7xjEa48NCY1wja9BGSfdrribL958UAj/nml+s+36tQebeYVgIHlTZYK2g4XrbdG45ezKgUN2nhIPzc6NGG92OX5r/l0JIa4ZrYb2PCJHRTgMhqXBNGJupC14WAr73GxrB2IoCSXFVPCcExIv7l0JgTk8LMVmfAR78URmSzUnE5ujBFuMjdSFI4ci4mrhe1SR5Hw5tFL2u7y0LQfbKdaJr08/jQjj/asB9hNpfsl3X7vCgEOkeJBzebV0ZlCesSjCu25ICC9OJS5+vCBHnSQUXhZBqo64xJgTbR1of5pI4xPpN8KwQACbng1KP6VAISQZATajRnLSnLmBHGAWMBXOJKDFntMauqx47oM2L+2aRVeGua18lREpic/EEoMnQMY2A2/ejTPT+gAyJEN+IFCl+2qQrJ032MnYuoRB7oiEEyys9FBmYw083mDdSC41HhAiJC8nGZs08mW0hOGLROjTnkIK31sz5siaSV0CWp8xbkaISgo6jIgpzAZwPe4Wx+quxz7gQubkkqHSt18DRcZ5RIUJjx0Vj0HhoXr1XQkmciw1Ama4nVs0hPVD4x6+4r4cJeHghZv+3IucxOa9g/oQw/jUmhMEwIQyGCWEwTAiDYUIYDBPCYJgQBuF1/gA2g4EVztQrKwAAAABJRU5ErkJggg==',
+          uid: '0804824021f04a33813189666109880a'
+        },
+        {
+          name: '图片名称3.jpg',
+          url:
+            'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIQAAAAgCAYAAADTydBfAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAOMSURBVHhe7ZpZjoMwDEA5FufhOFwmd+Eu/WZiZ8FO7CyFmVYjfzyphSxeHqHSzPJ6vU7DSJgQBsOEMBgmhMEwIQyGCWEwTAiDMS/EsZ/rsp77IdxDjnNfl3PdD+FeH7ct57K58B332k5XjBkB11n38xDu/Q6Q93uxvtx2LiRPt7XqS8i9gL0H53T4aiEO584dvi/z680LEeKGvYao1k7zY2OxTsWcSMjFnZv/vDk/lglxoBBUEBUiRJgT15PGDvLdJ0QCCzbzBMTmlOs0GY/72H3xRdnivnBPrBPdQxPiGtcVutgD45rKuea+EJhMML/HSLFFIaYJxf57ITxQH3h1uDtCAOF+M57uwznPsBBYhNjYC+lY6xR2QiCN7rGIhfJjPyFEgjTrGj8jRCLMkeqgMZKDxne9Mogst96FeR2tyBKThS+EqE62x4Ro8MkTIvNrQvgC+aLhj8htw8/NJ7ABPc1uiTVFaHAW5U0hUKwYe/eE+0YhaPFb9ASBQkBx0pMG677XzPik+zXGf49Mng6JSlrS8DeFSGuNxQ5rfFoIcqznJFqm4vhO0DAmFvcqBCT7xjEa48NCY1wja9BGSfdrribL958UAj/nml+s+36tQebeYVgIHlTZYK2g4XrbdG45ezKgUN2nhIPzc6NGG92OX5r/l0JIa4ZrYb2PCJHRTgMhqXBNGJupC14WAr73GxrB2IoCSXFVPCcExIv7l0JgTk8LMVmfAR78URmSzUnE5ujBFuMjdSFI4ci4mrhe1SR5Hw5tFL2u7y0LQfbKdaJr08/jQjj/asB9hNpfsl3X7vCgEOkeJBzebV0ZlCesSjCu25ICC9OJS5+vCBHnSQUXhZBqo64xJgTbR1of5pI4xPpN8KwQACbng1KP6VAISQZATajRnLSnLmBHGAWMBXOJKDFntMauqx47oM2L+2aRVeGua18lREpic/EEoMnQMY2A2/ejTPT+gAyJEN+IFCl+2qQrJ032MnYuoRB7oiEEyys9FBmYw083mDdSC41HhAiJC8nGZs08mW0hOGLROjTnkIK31sz5siaSV0CWp8xbkaISgo6jIgpzAZwPe4Wx+quxz7gQubkkqHSt18DRcZ5RIUJjx0Vj0HhoXr1XQkmciw1Ama4nVs0hPVD4x6+4r4cJeHghZv+3IucxOa9g/oQw/jUmhMEwIQyGCWEwTAiDYUIYDBPCYJgQBuF1/gA2g4EVztQrKwAAAABJRU5ErkJggg==',
+          uid: '0804824021f04a33813189666109880b'
+        }
+      ]
+    }
+  },
+  methods: {
+    // 添加一个文件成功后的回调(changeBase64为非直传方式不会触发接口提交，可通过此处进行base64文件的存储和手动提交操作)
+    addOneFile(file, fileList) {
+      console.log('addOneFile', 'file', file, 'fileList', fileList)
+    },
+    // 删除一个文件成功后的回调(changeBase64为非直传方式不会触发接口提交，可通过此处进行base64文件的存储和手动提交操作)
+    removeOneFile(file, fileList) {
+      console.log('removeOneFile', 'file', file, 'fileList', fileList)
+    }
+  }
+}
+</script>

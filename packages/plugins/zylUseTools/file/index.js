@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2022-11-30 01:42:05
  * @LastEditors: zhanghan
- * @LastEditTime: 2022-12-27 19:42:01
+ * @LastEditTime: 2023-01-29 10:24:09
  * @Descripttion: 文件相关
  */
 
@@ -79,6 +79,16 @@ export function getExtensionFromBase64(base64) {
 }
 
 /**
+ * 判断是否为base64格式文件
+ * @param {String} base64
+ * @returns {Boolean}
+ */
+export function checkBase64(base64) {
+  let re = new RegExp('/(?<ext>.*?);base64,.*')
+  return re.exec(base64)
+}
+
+/**
  * 获取uuid
  * @param {String} base64
  * @returns {String}
@@ -110,7 +120,7 @@ export function base64toBlob(base64String) {
     u8arr[n] = bstr.charCodeAt(n)
   }
   return new Blob([u8arr], {
-    type: mime,
+    type: mime
   })
 }
 
@@ -119,13 +129,13 @@ export function base64toBlob(base64String) {
  * @param {blob} file Blob格式数据
  */
 export function blobToBase64(file) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function(resolve, reject) {
     let reader = new FileReader()
     reader.readAsDataURL(file)
-    reader.onload = function () {
+    reader.onload = function() {
       resolve(reader.result)
     }
-    reader.onerror = function (error) {
+    reader.onerror = function(error) {
       reject(error)
     }
   })
@@ -138,7 +148,7 @@ export function blobToBase64(file) {
  * @param {number} quality 文件质量（0~1）
  */
 export function compressImg(base64String, w, quality) {
-  var getMimeType = function (urlData) {
+  var getMimeType = function(urlData) {
     var arr = urlData.split(',')
     var mime = arr[0].match(/:(.*?);/)[1]
     return mime
@@ -146,11 +156,11 @@ export function compressImg(base64String, w, quality) {
   var newImage = new Image()
   var imgWidth, imgHeight
 
-  var promise = new Promise(function (resolve) {
+  var promise = new Promise(function(resolve) {
     newImage.onload = resolve
   })
   newImage.src = base64String
-  return promise.then(function () {
+  return promise.then(function() {
     imgWidth = newImage.width
     imgHeight = newImage.height
     var canvas = document.createElement('canvas')

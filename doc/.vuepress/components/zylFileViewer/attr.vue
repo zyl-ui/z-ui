@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2022-12-04 01:00:07
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-01-28 17:55:11
+ * @LastEditTime: 2023-01-29 09:36:38
  * @Descripttion: 
 -->
 <template>
@@ -68,7 +68,7 @@ export default {
         {
           param: 'useOfficeMicroOnline',
           intro:
-            '是否开启使用微软提供的office文件在线访问接口（内网无效，可选，默认false关闭）',
+            '是否开启使用微软提供的office文件在线访问接口（需联网，内网无效，隐私文件不推荐开启；可选，默认false关闭）',
           type: 'Boolean',
           choose: 'true 开启 / false 关闭',
           default: 'false'

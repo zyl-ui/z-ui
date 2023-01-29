@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2021-08-10 13:51:18
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-01-28 10:34:46
+ * @LastEditTime: 2023-01-29 09:58:22
  * @Descripttion: 文件上传通用组件
 -->
 
@@ -87,15 +87,29 @@
       :preview-src-list="fileUrlListStringOnly"
       :z-index="9999"
     ></el-image>
+    <!-- 多格式文件浏览查看器 -->
+    <zyl-file-viewer
+      v-if="useFileViewer"
+      ref="fileViewer"
+      v-model="showFileViewer"
+      :viewerUrl="viewerUrl"
+      :initialIndex="nowImgUrlIndex"
+      :fileList="fileUrlListStringOnly"
+    ></zyl-file-viewer>
   </div>
 </template>
 <script>
+import Vue from 'vue'
 import {
   getUrlFileName,
   getExtensionFromBase64,
   blobToBase64,
   getUUID
 } from '../../../plugins/zylUseTools/file/index.js'
+
+import zylFileViewer from '../../zylFileViewer'
+Vue.use(zylFileViewer)
+
 export default {
   name: 'zylUploadFile',
   props: {
@@ -173,6 +187,16 @@ export default {
     notes: {
       type: String,
       default: ''
+    },
+    // 是否使用外部文件查看器
+    useFileViewer: {
+      type: Boolean,
+      default: false
+    },
+    // 文件查看器的地址（采用外部iframe浏览，节省构建时间）
+    viewerUrl: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -181,8 +205,12 @@ export default {
       fileList: [],
       // 当前点击的url/base64
       nowImgUrl: '',
+      // 当前点击的url/base64下标索引
+      nowImgUrlIndex: 0,
       // 检验是否通过上传前的规则校验
-      passCheck: true
+      passCheck: true,
+      // 是否弹出文件外部查看器
+      showFileViewer: false
     }
   },
   computed: {
@@ -383,9 +411,21 @@ export default {
         return this.$attrs['on-preview'](file)
       }
 
+      // 获取当前点击的文件和索引
       this.nowImgUrl = file.url
+      this.nowImgUrlIndex =
+        this.fileUrlListStringOnly.findIndex(
+          (item) => item === this.nowImgUrl
+        ) || 0
+
       //调用image组件中的大图浏览图片方法
       this.$nextTick(() => {
+        // 判断是否启用外部文件查看器
+        if (this.useFileViewer && this.viewerUrl) {
+          // 展示当前轮播图文件
+          this.showFileViewer = true
+          return
+        }
         this.$refs.zylUploadFilePreview.clickHandler()
       })
     },
