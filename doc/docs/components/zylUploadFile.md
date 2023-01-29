@@ -65,7 +65,10 @@ sidebarDepth: 2
 
 <zyl-demo-block>
 ::: slot source
+<ClientOnly>
 <zylUploadFile-demo5></zylUploadFile-demo5>
+</ClientOnly>
+
 :::
 ::: slot sourceCode
 <<< @/doc/.vuepress/components/zylUploadFile/demo5.vue
