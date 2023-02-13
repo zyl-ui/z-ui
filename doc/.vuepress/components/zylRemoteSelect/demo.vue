@@ -10,6 +10,21 @@
       placeholder="请搜索并选择用户"
       @getSelectList="getSelectList"
     />
+    <p>您也可以自定义备选项</p>
+    <zyl-remote-select
+      v-model="form.userId"
+      :label="form.userName"
+      :pageSize="10"
+      :total="userListTotal"
+      clearable
+      placeholder="请搜索并选择用户"
+      @getSelectList="getSelectList"
+    >
+      <template v-slot:optionItem="{ row, $index }">
+        <span style="color:blue">序号 {{ $index }}：</span>
+        <span style="color:red">{{ row.label }}</span>
+      </template>
+    </zyl-remote-select>
   </div>
 </template>
 

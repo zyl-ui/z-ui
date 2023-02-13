@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2020-04-30 01:04:33
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-02-10 19:38:33
+ * @LastEditTime: 2023-02-13 11:58:01
  * @Descripttion: 远程搜索分页选择器组件
  -->
 
@@ -21,7 +21,12 @@
       :key="index"
       :label="item.label"
       :value="item.value"
-    />
+    >
+      <slot v-bind="{ row: item, $index: index }" name="optionItem"></slot>
+    </el-option>
+    <template v-for="(index, name) in $slots" :slot="name">
+      <slot :name="name" />
+    </template>
     <el-button type="text" :loading="loading" class="load-text">
       {{
         loading
