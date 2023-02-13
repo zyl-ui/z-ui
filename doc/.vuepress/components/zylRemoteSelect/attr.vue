@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2022-12-04 01:00:07
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-02-10 19:35:24
+ * @LastEditTime: 2023-02-13 16:44:25
  * @Descripttion: 
 -->
 <template>
@@ -43,6 +43,13 @@ export default {
           type: 'number',
           choose: '',
           default: '0'
+        },
+        {
+          param: 'showDefaultList',
+          intro: '是否显示默认查询列表',
+          type: 'boolean',
+          choose: '',
+          default: 'false'
         },
         {
           param: '继承element属性',

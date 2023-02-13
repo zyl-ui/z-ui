@@ -1,23 +1,34 @@
 <template>
   <div>
-    <p>您可以输入模糊关键字 '张' 并滚动至底部查看分页加载效果。</p>
+    <p>滚动至底部查看分页加载效果</p>
     <zyl-remote-select
       v-model="form.userId"
-      :label="form.userName"
       :pageSize="10"
       :total="userListTotal"
       clearable
       placeholder="请搜索并选择用户"
+      showDefaultList
+      @getSelectList="getSelectList"
+    />
+    <p>使用label初始化数据实现数据回填</p>
+    <zyl-remote-select
+      v-model="form2.userId"
+      :pageSize="10"
+      :total="userListTotal"
+      :label="`${form2.userName} (ID：${form2.userId})`"
+      clearable
+      placeholder="请搜索并选择用户"
+      showDefaultList
       @getSelectList="getSelectList"
     />
     <p>您也可以自定义备选项</p>
     <zyl-remote-select
       v-model="form.userId"
-      :label="form.userName"
       :pageSize="10"
       :total="userListTotal"
       clearable
       placeholder="请搜索并选择用户"
+      showDefaultList
       @getSelectList="getSelectList"
     >
       <template v-slot:optionItem="{ row, $index }">
@@ -34,35 +45,38 @@ export default {
     return {
       userListTotal: 0,
       form: {
-        userId: 1,
-        userName: '王源'
+        userId: ''
+      },
+      form2: {
+        userName: '张三丰',
+        userId: 2400
       },
       // 模拟数据库数据
       dataBase: [
-        { userName: '王源', userId: 1 },
-        { userName: '张三', userId: this.getUid() },
-        { userName: '李四', userId: this.getUid() },
-        { userName: '王五', userId: this.getUid() },
-        { userName: '张丽', userId: this.getUid() },
-        { userName: '王媛媛', userId: this.getUid() },
-        { userName: '王志强', userId: this.getUid() },
-        { userName: '李晓明', userId: this.getUid() },
-        { userName: '钱学森', userId: this.getUid() },
-        { userName: '二麻子', userId: this.getUid() },
-        { userName: '张三丰', userId: this.getUid() },
-        { userName: '钱学森', userId: this.getUid() },
-        { userName: '二麻子', userId: this.getUid() },
-        { userName: '张三丰', userId: this.getUid() },
-        { userName: '张三丰', userId: this.getUid() },
-        { userName: '张三丰', userId: this.getUid() },
-        { userName: '张三丰', userId: this.getUid() },
-        { userName: '张三丰', userId: this.getUid() },
-        { userName: '张三丰', userId: this.getUid() },
-        { userName: '张三丰', userId: this.getUid() },
-        { userName: '张三丰', userId: this.getUid() },
-        { userName: '张三丰', userId: this.getUid() },
-        { userName: '张三丰', userId: this.getUid() },
-        { userName: '张三丰', userId: this.getUid() }
+        { userName: '王源', userId: 100 },
+        { userName: '张三', userId: 200 },
+        { userName: '李四', userId: 300 },
+        { userName: '王五', userId: 400 },
+        { userName: '张丽', userId: 500 },
+        { userName: '王媛媛', userId: 600 },
+        { userName: '王志强', userId: 700 },
+        { userName: '李晓明', userId: 800 },
+        { userName: '钱学森', userId: 900 },
+        { userName: '二麻子', userId: 1000 },
+        { userName: '张三丰', userId: 1100 },
+        { userName: '钱学森', userId: 1200 },
+        { userName: '二麻子', userId: 1300 },
+        { userName: '张三丰', userId: 1400 },
+        { userName: '张三丰', userId: 1500 },
+        { userName: '张三丰', userId: 1600 },
+        { userName: '张三丰', userId: 1700 },
+        { userName: '张三丰', userId: 1800 },
+        { userName: '张三丰', userId: 1900 },
+        { userName: '张三丰', userId: 2000 },
+        { userName: '张三丰', userId: 2100 },
+        { userName: '张三丰', userId: 2200 },
+        { userName: '张三丰', userId: 2300 },
+        { userName: '张三丰', userId: 2400 }
       ]
     }
   },
@@ -81,9 +95,11 @@ export default {
         // 模拟请求
         setTimeout(() => {
           // 模拟后端响应数据模糊搜索(此部分为演示数据处理)
-          const filterList = this.dataBase.filter(
-            (item) => item.userName.indexOf(searchWorld) > -1
-          )
+          const filterList = searchWorld
+            ? this.dataBase.filter(
+                (item) => item.userName.indexOf(searchWorld) > -1
+              )
+            : this.dataBase
           console.log('filterList', filterList)
 
           // 模拟后端响应数据分页查询(此部分为演示数据处理)
@@ -105,7 +121,7 @@ export default {
           const list =
             data.list.map((item) => {
               return {
-                label: `${item.userName} (${item.userId})`, //加上id或其他唯一标识用于识别同名选项
+                label: `${item.userName} (ID：${item.userId})`, //加上id或其他唯一标识用于识别同名选项
                 value: item.userId
               }
             }) || []
@@ -113,14 +129,6 @@ export default {
           resovle(list)
         }, 1500)
       })
-    },
-    // 模拟用户随机id
-    getUid() {
-      let num = ''
-      for (let i = 0; i < 6; i++) {
-        num += Math.floor(Math.random() * 10)
-      }
-      return num
     }
   }
 }

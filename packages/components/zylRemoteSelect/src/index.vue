@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2020-04-30 01:04:33
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-02-13 11:58:01
+ * @LastEditTime: 2023-02-13 18:41:30
  * @Descripttion: 远程搜索分页选择器组件
  -->
 
@@ -13,7 +13,7 @@
     v-loadmore="loadmore"
     filterable
     remote
-    :loading="firstLoading"
+    :loading="listLoading"
     :remote-method="remoteMethod"
   >
     <el-option
@@ -58,14 +58,19 @@ export default {
     label: {
       type: String,
       default: ''
+    },
+    // 是否显示默认查询列表
+    showDefaultList: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
       // 是否是第一次进入
-      isFirstIn: false,
-      // 是否是第一次加载
-      firstLoading: false,
+      isFirstIn: true,
+      // 查询列表加载状态
+      listLoading: false,
       loading: false,
       // 远程搜索参数
       queryParams: {
@@ -99,12 +104,13 @@ export default {
       handler(val) {
         // 若初始化无值需要将列表同步置空
         if (!val) {
-          this.selectList = []
           this.isFirstIn = false
-        } else if (this.selectList.length == 0) {
-          // 若初始化有值且列表为空说明第一次进入，将初始化数据塞入列表用于显示
-          this.isFirstIn = true
-          this.selectList.push({ label: this.label, value: val })
+          this.remoteMethod()
+        } else {
+          // 若存在默认绑定值且第一次进入，将默认值塞入列表项
+          if (this.isFirstIn) {
+            this.selectList.push({ label: this.label, value: val })
+          }
         }
       }
     }
@@ -112,14 +118,12 @@ export default {
   methods: {
     // 远程搜索
     remoteMethod(query) {
-      if (query !== '') {
+      this.selectList = []
+      if (query || this.showDefaultList) {
         this.queryParams.searchWorld = query
         this.queryParams.pageNum = 1
-        this.selectList = []
-        this.firstLoading = true
+        this.listLoading = true
         this.getSelectList()
-      } else {
-        this.selectList = []
       }
     },
     // 调用接口查询数据
@@ -131,7 +135,7 @@ export default {
         (await this.$listeners
           .getSelectList(searchWorld, pageNum, this.pageSize)
           .finally(() => {
-            this.firstLoading = false
+            this.listLoading = false
             this.loading = false
           })) || []
       // 将每次分页数据追加
