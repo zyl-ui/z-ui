@@ -5,7 +5,6 @@
       v-model="deptId"
       clearable
       default-expand-all
-      check-strictly
       highlight-current
       :expand-on-click-node="false"
       placeholder="请选择部门"
