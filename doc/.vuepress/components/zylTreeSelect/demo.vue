@@ -55,6 +55,27 @@
         value: 'id'
       }"
     />
+    <p>
+      通过
+      <strong>filterable</strong>
+      属性启用关键字检索功能
+    </p>
+    <zyl-tree-select
+      v-model="deptId4"
+      clearable
+      filterable
+      default-expand-all
+      highlight-current
+      :expand-on-click-node="false"
+      placeholder="请输入关键字搜索并选择部门"
+      style="width: 250px;"
+      :treeData="treeData"
+      :defaultProps="{
+        children: 'children',
+        label: 'label',
+        value: 'id'
+      }"
+    />
   </div>
 </template>
 
@@ -65,6 +86,7 @@ export default {
       deptId: '',
       deptId2: [],
       deptId3: [],
+      deptId4: '',
       treeData: [
         {
           id: 1,

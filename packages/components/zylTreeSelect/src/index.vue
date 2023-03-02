@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2023-02-28 16:34:00
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-03-02 10:32:21
+ * @LastEditTime: 2023-03-02 14:15:00
  * @Descripttion: 树状结构选择组件
 -->
 <template>
@@ -11,6 +11,7 @@
     v-model="selectVal"
     v-bind="$attrs"
     v-on="$listeners"
+    :filter-method="filterMethod"
   >
     <el-option
       v-for="(item, index) in treeToArray(treeData)"
@@ -26,6 +27,7 @@
           : 'main-select-el-tree'
       ]"
       ref="nodeTree"
+      :filter-node-method="filterNode"
       v-bind="$attrs"
       v-on="$listeners"
       :data="treeData"
@@ -101,13 +103,23 @@ export default {
   watch: {
     selectVal: {
       immediate: true, //  关键，，将立即以表达式的当前值触发回调
-      handler(val) {
+      handler(val, oval) {
+        // 有过滤属性的情况，当选择项清空时对应的关键字过滤节点也清空
+        if (this.$attrs.filterable === '' || this.$attrs.filterable === true) {
+          this.$nextTick(() => {
+            this.filterMethod('')
+          })
+        }
+
         // 单选的情况不做勾选赋值操作
-        if (!(this.$attrs.multiple === '' || this.$attrs.multiple === true))
-          return
-        this.$nextTick(() => {
-          this.$refs.nodeTree.setCheckedKeys(this.selectVal)
-        })
+        if (
+          Array.isArray(val) &&
+          (this.$attrs.multiple === '' || this.$attrs.multiple === true)
+        ) {
+          this.$nextTick(() => {
+            this.$refs.nodeTree.setCheckedKeys(val)
+          })
+        }
       }
     }
   },
@@ -138,6 +150,15 @@ export default {
           this.checkLeafOnly === '' || this.checkLeafOnly === true
         )
       })
+    },
+    // 选择项过滤触发
+    filterMethod(val) {
+      this.$refs.nodeTree.filter(val)
+    },
+    // 节点过滤方法
+    filterNode(value, data) {
+      if (!value) return true
+      return data[this.defaultProps.label].indexOf(value) !== -1
     }
   }
 }
