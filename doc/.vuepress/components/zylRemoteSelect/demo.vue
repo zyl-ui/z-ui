@@ -84,14 +84,6 @@ export default {
     getSelectList(searchWorld, pageNum, pageSize) {
       // 需要返回一个promise
       return new Promise((resovle) => {
-        console.log(
-          'searchWorld',
-          searchWorld,
-          'pageNum',
-          pageNum,
-          'pageSize',
-          pageSize
-        )
         // 模拟请求
         setTimeout(() => {
           // 模拟后端响应数据模糊搜索(此部分为演示数据处理)
@@ -100,20 +92,17 @@ export default {
                 (item) => item.userName.indexOf(searchWorld) > -1
               )
             : this.dataBase
-          console.log('filterList', filterList)
 
           // 模拟后端响应数据分页查询(此部分为演示数据处理)
           const m = (pageNum - 1) * pageSize
           const n = pageNum * pageSize
           const pageList = filterList.slice(m, n)
-          console.log('pageList', pageList)
 
           // 模拟响应数据最终返回(此部分为演示数据处理)
           let data = {
             list: pageList,
             total: filterList.length
           }
-          console.log('data', data)
 
           // 告知组件数据总数，用于判断是否下拉到底部
           this.userListTotal = data.total
