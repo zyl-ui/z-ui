@@ -15,6 +15,7 @@
     remote
     :loading="listLoading"
     :remote-method="remoteMethod"
+    ref="remoteSelect"
   >
     <el-option
       v-for="(item, index) in selectList"

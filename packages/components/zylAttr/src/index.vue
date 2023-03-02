@@ -5,6 +5,7 @@
  * @LastEditTime: 2022-12-27 14:38:38
  * @Descripttion: 组件属性表
  -->
+ 
 <template>
   <div>
     <el-table :data="fitterTableData" style="width: 100%">

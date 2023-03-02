@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2020-04-27 13:37:08
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-01-28 14:38:55
+ * @LastEditTime: 2023-03-01 17:34:33
  * @Descripttion: 全局安装方法
  */
 
@@ -22,6 +22,7 @@ import zylSyncButton from './components/zylSyncButton'
 import zylUploadFile from './components/zylUploadFile'
 import zylFileViewer from './components/zylFileViewer'
 import zylRemoteSelect from './components/zylRemoteSelect'
+import zylTreeSelect from './components/zylTreeSelect'
 import zylToast from './components/zylToast'
 const components = [
   zylAttr,
@@ -32,6 +33,7 @@ const components = [
   zylUploadFile,
   zylFileViewer,
   zylRemoteSelect,
+  zylTreeSelect,
   zylToast
 ]
 
@@ -71,5 +73,6 @@ export {
   zylUploadFile,
   zylFileViewer,
   zylRemoteSelect,
+  zylTreeSelect,
   zylToast
 }

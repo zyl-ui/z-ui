@@ -5,6 +5,10 @@ sidebarDepth: 2
 
 # zylUseTools 全局过滤函数
 
+### 用途
+
+可以用于方便快捷的使用一些常用工具类。
+
 ### 安装
 
 - 全量引入的 zylUI 组件会通过 `Vue.prototype.$zylUseTools` 原型链自动注册如下表格列举的工具函数，**不需要单独注册**；
@@ -22,10 +26,6 @@ Vue.use(zylUseTools)
 ### 基础用法
 
 `this.$zylUseTools[工具类方法名](参数)`
-
-### 用途
-
-可以用于方便快捷的使用一些常用工具类
 
 ### 方法
 

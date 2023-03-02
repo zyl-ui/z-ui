@@ -5,7 +5,7 @@
  * @LastEditTime: 2023-01-28 10:32:34
  * @Descripttion: 折叠组件
  -->
- 
+
 <template>
   <div class="contentWrapper">
     <div class="componentsMessage">

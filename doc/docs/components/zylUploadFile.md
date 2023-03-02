@@ -97,7 +97,7 @@ sidebarDepth: 2
 :::
 </zyl-demo-block>
 
-该组件新增和替换的属性/事件/插槽在以下表格，其余参数全部继承自 [el-upload](https://element.eleme.cn/2.15/#/zh-CN/component/upload) ，可自行查阅按照原方法使用。
+该组件新增和替换的属性/事件/方法/插槽在以下表格，其余参数全部继承自 [el-upload](https://element.eleme.cn/2.15/#/zh-CN/component/upload) ，可自行查阅按照原方法使用。
 
 ### 属性
 
@@ -108,5 +108,11 @@ sidebarDepth: 2
 <zylUploadFile-slot></zylUploadFile-slot>
 
 ### 事件
+
+<zylUploadFile-event></zylUploadFile-event>
+
+### 方法
+
+请在该组件绑定 ref 后通过 `this.$refs.组件绑定ref的名称.$refs.uploadFile.方法名()` 进行 `el-upload` 方法的使用。
 
 <zylUploadFile-func></zylUploadFile-func>

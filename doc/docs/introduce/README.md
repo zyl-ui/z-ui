@@ -382,7 +382,7 @@ VuePress 是 Vue 驱动的静态网站生成器。支持在 Markdown 中使用 V
 }
 ```
 
-`.vuepress/enhanceApp.js` 相当于 mian.js 为项目入口，可在此安装插件
+`.vuepress/enhanceApp.js` 相当于 main.js 为项目入口，可在此安装插件
 
 ```javascript
 // vuepress/enhanceApp.js

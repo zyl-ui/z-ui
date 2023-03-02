@@ -2,8 +2,8 @@
  * @Author: zhanghan
  * @Date: 2020-04-30 09:52:45
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-03-02 10:11:40
- * @Descripttion: 组件方法
+ * @LastEditTime: 2023-03-02 10:13:32
+ * @Descripttion: 组件事件
  -->
 <template>
   <div>
@@ -17,12 +17,12 @@ export default {
     return {
       tableData: [
         {
-          funName: '继承element方法',
-          intro: '继承element方法',
-          param: '继承element方法'
+          eventName: '继承element事件',
+          intro: '继承element事件',
+          param: '继承element事件'
         },
         {
-          funName: '',
+          eventName: '',
           intro: '',
           param: ''
         }

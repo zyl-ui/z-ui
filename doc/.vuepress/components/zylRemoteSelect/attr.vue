@@ -19,7 +19,7 @@ export default {
         {
           param: 'v-model / value',
           intro: '初始化需要显示在select上的绑定值',
-          type: 'array [number / string]',
+          type: 'number / string',
           choose: '',
           default: ''
         },

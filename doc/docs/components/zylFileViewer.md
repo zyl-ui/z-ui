@@ -13,7 +13,7 @@ sidebarDepth: 2
 
 **示例代码中文件查看器的地址 `viewerUrl` 属性值为演示地址，切勿直接用于生产。**
 
-本组件基于自主研发的关联组件生态 [@zuiyouliao/vue-file-viewer](https://home.sharecorner.top/file-viewer-doc/index.html#/start) 开发，若本组件库提供的组件不满足您的需求，您也可以查阅上方提供的文档链接进行独立安装部署和使用。
+本组件基于自主研发的关联组件生态 [@zuiyouliao/vue-file-viewer](https://home.sharecorner.top/file-viewer-doc/index.html#/start) 开发，若本组件库提供的该组件不满足您的需求，您也可以查阅上方提供的文档链接进行独立安装部署和使用。
 
 **为节省组件库体积，本组件库不会包含查看器相关内核代码，您需要配合以下安装步骤进行私有化部署。**
 

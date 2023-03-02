@@ -5,6 +5,10 @@ sidebarDepth: 2
 
 # zylUseFilters 全局过滤函数
 
+### 用途
+
+可以用于过滤字段和枚举一些数据字典的场景。
+
 ### 安装
 
 - 全量引入的 zylUI 组件会通过`Vue.filter`自动注册如下表格列举的过滤函数，**不需要单独注册**；
@@ -69,13 +73,9 @@ console.log(oprtTime) // 2021-05-14 09:33
       (row, column, cellValue) => $options.filters.zylEmpty(cellValue)
     "
 >
-  <template slot-scope="{ row }"> {{ row.noValue | zylMoney }} </template>
+  <template slot-scope="{ row }">{{ row.noValue | zylMoney }}</template>
 </el-table-column>
 ```
-
-### 用途
-
-可以用于过滤字段和枚举一些数据字典的场景
 
 ### 方法
 
