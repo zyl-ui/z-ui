@@ -125,7 +125,7 @@ export default {
       if (this.$attrs.multiple === '' || this.$attrs.multiple === true) return
 
       // 给选择框赋值
-      this.selectVal = node[this.defaultProps.value]
+      this.selectVal = node.data[this.defaultProps.value]
       this.$refs.treeSelect.blur()
     },
     // 当复选框被点击的时候触发（多选）
