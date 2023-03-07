@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2022-11-24 11:07:14
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-03-01 18:15:26
+ * @LastEditTime: 2023-03-03 10:06:45
  * @Descripttion:
  */
 module.exports = {
@@ -41,7 +41,8 @@ module.exports = {
           'docs/components/zylUploadFile.md',
           'docs/components/zylFileViewer.md',
           'docs/components/zylRemoteSelect.md',
-          'docs/components/zylTreeSelect.md'
+          'docs/components/zylTreeSelect.md',
+          'docs/components/zylTagSelect.md'
         ],
         collapsable: false //默认展开
       },

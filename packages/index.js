@@ -23,6 +23,7 @@ import zylUploadFile from './components/zylUploadFile'
 import zylFileViewer from './components/zylFileViewer'
 import zylRemoteSelect from './components/zylRemoteSelect'
 import zylTreeSelect from './components/zylTreeSelect'
+import zylTagSelect from './components/zylTagSelect'
 import zylToast from './components/zylToast'
 const components = [
   zylAttr,
@@ -34,6 +35,7 @@ const components = [
   zylFileViewer,
   zylRemoteSelect,
   zylTreeSelect,
+  zylTagSelect,
   zylToast
 ]
 
@@ -74,5 +76,6 @@ export {
   zylFileViewer,
   zylRemoteSelect,
   zylTreeSelect,
+  zylTagSelect,
   zylToast
 }

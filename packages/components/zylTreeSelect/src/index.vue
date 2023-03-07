@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2023-02-28 16:34:00
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-03-02 14:15:00
+ * @LastEditTime: 2023-03-03 11:54:59
  * @Descripttion: 树状结构选择组件
 -->
 <template>
@@ -58,7 +58,7 @@ export default {
       require: true,
       default: () => []
     },
-    // 用于选择的树状数据
+    // 用于选择的树状数据格式描述
     defaultProps: {
       type: Object,
       default: () => ({
@@ -85,6 +85,14 @@ export default {
         return this.value
       }
     },
+    // 是否为多选
+    isMultiple() {
+      return this.$attrs.multiple === '' || this.$attrs.multiple === true
+    },
+    // 是否开启过滤
+    isFilterable() {
+      return this.$attrs.filterable === '' || this.$attrs.filterable === true
+    },
     // 树数据扁平化处理
     treeToArray() {
       return function(tree) {
@@ -105,17 +113,14 @@ export default {
       immediate: true, //  关键，，将立即以表达式的当前值触发回调
       handler(val, oval) {
         // 有过滤属性的情况，当选择项清空时对应的关键字过滤节点也清空
-        if (this.$attrs.filterable === '' || this.$attrs.filterable === true) {
+        if (this.isFilterable) {
           this.$nextTick(() => {
             this.filterMethod('')
           })
         }
 
         // 单选的情况不做勾选赋值操作
-        if (
-          Array.isArray(val) &&
-          (this.$attrs.multiple === '' || this.$attrs.multiple === true)
-        ) {
+        if (Array.isArray(val) && this.isMultiple) {
           this.$nextTick(() => {
             this.$refs.nodeTree.setCheckedKeys(val)
           })
@@ -134,7 +139,7 @@ export default {
         this.$attrs['current-change'](dataItem, node)
 
       // 多选的情况不做赋值操作
-      if (this.$attrs.multiple === '' || this.$attrs.multiple === true) return
+      if (this.isMultiple) return
 
       // 给选择框赋值
       this.selectVal = node.data[this.defaultProps.value]

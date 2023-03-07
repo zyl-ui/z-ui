@@ -1,9 +1,9 @@
 ---
-title: zylUploadFile - 通用上传组件
+title: zylUploadFile - 增强上传组件
 sidebarDepth: 2
 ---
 
-# zylUploadFile - 通用上传组件
+# zylUploadFile - 增强上传组件
 
 ### 用途
 
