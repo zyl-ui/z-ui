@@ -84,7 +84,7 @@ export default {
         },
         {
           param: 'showSwitchBtn',
-          intro: '是否显示左右切换按钮',
+          intro: '是否显示左右切换按钮（开启后switchSelect属性无效）',
           type: 'Boolean',
           choose: 'false / true',
           default: 'true'
