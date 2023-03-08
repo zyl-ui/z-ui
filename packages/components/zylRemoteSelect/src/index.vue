@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2020-04-30 01:04:33
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-02-13 18:41:30
+ * @LastEditTime: 2023-03-08 19:54:48
  * @Descripttion: 远程搜索分页选择器组件
  -->
 
@@ -102,11 +102,11 @@ export default {
   watch: {
     '$attrs.value': {
       immediate: true, //  关键，，将立即以表达式的当前值触发回调
-      handler(val) {
+      handler(val, oval) {
         // 若初始化无值需要将列表同步置空
         if (!val) {
           this.isFirstIn = false
-          this.remoteMethod()
+          oval && this.remoteMethod()
         } else {
           // 若存在默认绑定值且第一次进入，将默认值塞入列表项
           if (this.isFirstIn) {

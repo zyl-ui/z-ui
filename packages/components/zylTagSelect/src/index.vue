@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2023-02-28 16:34:00
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-03-07 10:58:48
+ * @LastEditTime: 2023-03-08 19:54:07
  * @Descripttion: 标签选择器组件
 -->
 <template>
@@ -243,7 +243,7 @@ export default {
         // 根据边界判断设置可展示区域的第一个index
         this.isfollowSelect && this.setFirstShowIndex()
         // 触发change
-        this.$emit('change', tagInfo)
+        oval && this.$emit('change', tagInfo)
       }
     }
   },
