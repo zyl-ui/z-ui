@@ -106,7 +106,7 @@ export default {
         // 若初始化无值需要将列表同步置空
         if (!val) {
           this.isFirstIn = false
-          oval && this.remoteMethod()
+          this.remoteMethod()
         } else {
           // 若存在默认绑定值且第一次进入，将默认值塞入列表项
           if (this.isFirstIn) {

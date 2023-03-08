@@ -215,7 +215,6 @@ export default {
       handler(val, oval) {
         if (val === oval) return
         // 初始化选中tag
-        let tagInfo
         // 判断是多选还是单选
         if (Array.isArray(val)) {
           this.nowIndex = []
@@ -225,7 +224,7 @@ export default {
             const idx = this.list.findIndex(
               (listItem) => item == listItem[this.defaultProps.value]
             )
-            tagInfo = this.addOrDeleteTag(
+            this.addOrDeleteTag(
               this.list[idx][this.defaultProps.value],
               idx
             )
@@ -235,15 +234,13 @@ export default {
           const idx = this.list.findIndex(
             (listItem) => val == listItem[this.defaultProps.value]
           )
-          tagInfo = this.addOrDeleteTag(
+          this.addOrDeleteTag(
             this.list[idx][this.defaultProps.value],
             idx
           )
         }
         // 根据边界判断设置可展示区域的第一个index
         this.isfollowSelect && this.setFirstShowIndex()
-        // 触发change
-        oval && this.$emit('change', tagInfo)
       }
     }
   },
