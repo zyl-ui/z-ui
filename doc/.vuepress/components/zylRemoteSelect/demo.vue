@@ -11,29 +11,26 @@
       @getSelectList="getSelectList"
     />
     <p>使用label初始化数据实现数据回填</p>
-    <p>（1）单选</p>
+    <p>（1）单选：{{ form2.userId }}</p>
     <zyl-remote-select
       v-model="form2.userId"
+      :initList="form2.initList"
       :pageSize="10"
       :total="userListTotal"
-      :label="`${form2.userName} (ID：${form2.userId})`"
       clearable
       placeholder="请搜索并选择用户"
       showDefaultList
       @getSelectList="getSelectList"
     />
-    <p>（2）多选</p>
+    <p>（2）多选：{{ form3.userId }}</p>
     <zyl-remote-select
       v-model="form3.userId"
+      :initList="form3.initList"
       :pageSize="10"
       :total="userListTotal"
-      :label="
-        form3.userName.map(
-          (item, index) => `${item} (ID：${form3.userId[index]})`
-        )
-      "
       clearable
       multiple
+      reserve-keyword
       showDefaultList
       placeholder="请搜索并选择用户"
       @getSelectList="getSelectList"
@@ -65,12 +62,16 @@ export default {
         userId: ''
       },
       form2: {
-        userName: '张三丰',
-        userId: 2400
+        userId: 2400,
+        initList: [{ label: '张三丰(ID：2400)', value: 2400 }]
       },
       form3: {
-        userName: ['二麻子', '张三丰'],
-        userId: [1000, 2400]
+        userId: [1000, 2400, 300],
+        initList: [
+          { label: '二麻子(ID：1000)', value: 1000 },
+          { label: '张三丰(ID：2400)', value: 2400 },
+          { label: '李四(ID：300)', value: 300 }
+        ]
       },
       form4: {
         userId: ''
@@ -134,7 +135,7 @@ export default {
           const list =
             data.list.map((item) => {
               return {
-                label: `${item.userName} (ID：${item.userId})`, //加上id或其他唯一标识用于识别同名选项
+                label: `${item.userName}(ID：${item.userId})`, //加上id或其他唯一标识用于识别同名选项
                 value: item.userId
               }
             }) || []

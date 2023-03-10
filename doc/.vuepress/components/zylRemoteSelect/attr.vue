@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2022-12-04 01:00:07
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-03-10 10:20:34
+ * @LastEditTime: 2023-03-10 16:58:39
  * @Descripttion: 
 -->
 <template>
@@ -19,16 +19,16 @@ export default {
         {
           param: 'v-model / value',
           intro:
-            '初始化需要显示在select上的绑定值（若为数组需要与label数组一一对应）',
+            '初始化需要显示在select上的绑定值（需要与initList数组的value值对应，且值需要唯一）',
           type: 'number / string / array[number / string]',
           choose: '',
           default: ''
         },
         {
-          param: 'label',
+          param: 'initList',
           intro:
-            '初始化需要显示在select上的文字信息（若为数组需要与v-model数组一一对应）',
-          type: 'string / array[string]',
+            '初始化需要显示在select上的文字信息（需要与v-model数组绑定的值对应，且value值需要唯一）',
+          type: 'array[object] 格式如下：[{label: "描述文字1", value: 1}]',
           choose: '',
           default: ''
         },

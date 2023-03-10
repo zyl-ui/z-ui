@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2023-02-28 16:34:00
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-03-08 19:54:07
+ * @LastEditTime: 2023-03-10 14:55:54
  * @Descripttion: 标签选择器组件
 -->
 <template>
@@ -224,20 +224,14 @@ export default {
             const idx = this.list.findIndex(
               (listItem) => item == listItem[this.defaultProps.value]
             )
-            this.addOrDeleteTag(
-              this.list[idx][this.defaultProps.value],
-              idx
-            )
+            this.addOrDeleteTag(this.list[idx][this.defaultProps.value], idx)
           })
         } else {
           // 单选
           const idx = this.list.findIndex(
             (listItem) => val == listItem[this.defaultProps.value]
           )
-          this.addOrDeleteTag(
-            this.list[idx][this.defaultProps.value],
-            idx
-          )
+          this.addOrDeleteTag(this.list[idx][this.defaultProps.value], idx)
         }
         // 根据边界判断设置可展示区域的第一个index
         this.isfollowSelect && this.setFirstShowIndex()

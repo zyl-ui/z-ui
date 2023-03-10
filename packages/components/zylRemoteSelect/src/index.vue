@@ -2,12 +2,13 @@
  * @Author: zhanghan
  * @Date: 2020-04-30 01:04:33
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-03-10 11:01:04
+ * @LastEditTime: 2023-03-10 18:04:16
  * @Descripttion: 远程搜索分页选择器组件
  -->
 
 <template>
   <el-select
+    v-model="selectVal"
     v-bind="$attrs"
     v-on="$listeners"
     v-loadmore="loadmore"
@@ -18,8 +19,8 @@
     ref="remoteSelect"
   >
     <el-option
-      v-for="(item, index) in selectList"
-      :key="index"
+      v-for="(item, index) in selectListNew"
+      :key="item.value"
       :label="item.label"
       :value="item.value"
     >
@@ -32,7 +33,7 @@
       {{
         loading
           ? '加载中'
-          : this.selectList.length < this.total && !isFirstIn
+          : this.realListTotal < this.total
           ? '下拉加载'
           : '没有更多了'
       }}
@@ -44,6 +45,11 @@
 export default {
   name: 'zylRemoteSelect',
   props: {
+    // 绑定值
+    value: {
+      type: [String, Number, Array],
+      default: ''
+    },
     // 总列表数，用于判断是否继续下拉分页请求
     total: {
       type: Number,
@@ -55,10 +61,10 @@ export default {
       type: Number,
       default: 10
     },
-    // 初始化需要显示在select上的文字信息
-    label: {
-      type: [String, Array],
-      default: ''
+    // 初始化需要显示在select上的列表
+    initList: {
+      type: Array,
+      default: () => []
     },
     // 是否显示默认查询列表
     showDefaultList: {
@@ -71,15 +77,40 @@ export default {
       // 查询列表加载状态
       listLoading: false,
       loading: false,
-      // 是否为第一次进入
-      isFirstIn: true,
       // 远程搜索参数
       queryParams: {
         searchWorld: '',
         pageNum: ''
       },
       // 选择项列表
-      selectList: []
+      selectList: [],
+      // 是否为输入文字筛选
+      searchWord: ''
+    }
+  },
+  computed: {
+    // 组件外部绑定选择的树id
+    selectVal: {
+      // 利用计算属性动态设置外部v-model绑定值
+      set(val) {
+        this.$emit('input', val)
+      },
+      // 利用计算属性动态获取外部v-model绑定值
+      get() {
+        return this.value
+      }
+    },
+    // 在初始化列表前面追加不重复的新数据
+    selectListNew() {
+      let initList = this.searchWord
+        ? this.initList.filter(
+            (item) => item.label.indexOf(this.searchWord) > -1
+          )
+        : this.initList
+      return [...initList, ...this.selectList]
+    },
+    realListTotal() {
+      return [...this.selectList, ...this.initList].length
     }
   },
   directives: {
@@ -100,36 +131,23 @@ export default {
     }
   },
   watch: {
-    '$attrs.value': {
+    selectVal: {
       immediate: true, //  关键，，将立即以表达式的当前值触发回调
       handler(val, oval) {
         // 防止重复触发
         if (val === oval) return
-
-        if (val && !oval) {
-          // 若存在默认绑定值且第一次进入，将默认值塞入列表项
-          if (Array.isArray(this.label) && Array.isArray(val)) {
-            // 多选
-            val.forEach((item, index) => {
-              this.selectList.push({ label: this.label[index], value: item })
-            })
-          } else {
-            // 单选
-            this.selectList.push({ label: this.label, value: val })
-          }
-        } else {
-          this.isFirstIn = false
-          // 远程搜索
-          this.remoteMethod()
-        }
+        // 首次进入进行远程搜索
+        !oval && this.remoteMethod()
       }
     }
   },
   methods: {
     // 远程搜索
     remoteMethod(query) {
-      this.selectList = []
+      this.searchWord = query
+      // 根据开关判断是否进行远程搜索
       if (query || this.showDefaultList) {
+        this.selectList = []
         this.queryParams.searchWorld = query
         this.queryParams.pageNum = 1
         this.listLoading = true
@@ -141,20 +159,32 @@ export default {
       this.loading = true
       const { searchWorld, pageNum } = this.queryParams
       // 调用绑定请求分页数据的方法
-      const result =
+      let result =
         (await this.$listeners
           .getSelectList(searchWorld, pageNum, this.pageSize)
           .finally(() => {
             this.listLoading = false
             this.loading = false
           })) || []
+
+      // 去重
+      result = result.filter((item) => {
+        let flag = true
+        this.initList.forEach((initItem) => {
+          if (initItem.value === item.value && initItem.label === item.label) {
+            flag = false
+          }
+        })
+        return flag
+      })
+
       // 将每次分页数据追加
       this.selectList = [...this.selectList, ...result]
     },
     // 远程搜索列表触底事件
     loadmore() {
       // 分页数据不超过总数可以继续下拉请求
-      if (this.selectList.length < this.total) {
+      if (this.realListTotal < this.total) {
         this.queryParams.pageNum++
         this.getSelectList()
       }
