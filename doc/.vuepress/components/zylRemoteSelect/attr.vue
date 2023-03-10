@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2022-12-04 01:00:07
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-02-13 16:44:25
+ * @LastEditTime: 2023-03-10 10:20:34
  * @Descripttion: 
 -->
 <template>
@@ -18,15 +18,17 @@ export default {
       tableData: [
         {
           param: 'v-model / value',
-          intro: '初始化需要显示在select上的绑定值',
-          type: 'number / string',
+          intro:
+            '初始化需要显示在select上的绑定值（若为数组需要与label数组一一对应）',
+          type: 'number / string / array[number / string]',
           choose: '',
           default: ''
         },
         {
           param: 'label',
-          intro: '初始化需要显示在select上的文字信息',
-          type: 'string',
+          intro:
+            '初始化需要显示在select上的文字信息（若为数组需要与v-model数组一一对应）',
+          type: 'string / array[string]',
           choose: '',
           default: ''
         },

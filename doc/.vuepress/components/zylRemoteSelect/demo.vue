@@ -11,6 +11,7 @@
       @getSelectList="getSelectList"
     />
     <p>使用label初始化数据实现数据回填</p>
+    <p>（1）单选</p>
     <zyl-remote-select
       v-model="form2.userId"
       :pageSize="10"
@@ -21,9 +22,25 @@
       showDefaultList
       @getSelectList="getSelectList"
     />
+    <p>（2）多选</p>
+    <zyl-remote-select
+      v-model="form3.userId"
+      :pageSize="10"
+      :total="userListTotal"
+      :label="
+        form3.userName.map(
+          (item, index) => `${item} (ID：${form3.userId[index]})`
+        )
+      "
+      clearable
+      multiple
+      showDefaultList
+      placeholder="请搜索并选择用户"
+      @getSelectList="getSelectList"
+    />
     <p>您也可以自定义备选项</p>
     <zyl-remote-select
-      v-model="form.userId"
+      v-model="form4.userId"
       :pageSize="10"
       :total="userListTotal"
       clearable
@@ -50,6 +67,13 @@ export default {
       form2: {
         userName: '张三丰',
         userId: 2400
+      },
+      form3: {
+        userName: ['二麻子', '张三丰'],
+        userId: [1000, 2400]
+      },
+      form4: {
+        userId: ''
       },
       // 模拟数据库数据
       dataBase: [

@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2020-04-30 01:04:33
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-03-08 19:54:48
+ * @LastEditTime: 2023-03-10 11:01:04
  * @Descripttion: 远程搜索分页选择器组件
  -->
 
@@ -57,7 +57,7 @@ export default {
     },
     // 初始化需要显示在select上的文字信息
     label: {
-      type: String,
+      type: [String, Array],
       default: ''
     },
     // 是否显示默认查询列表
@@ -68,11 +68,11 @@ export default {
   },
   data() {
     return {
-      // 是否是第一次进入
-      isFirstIn: true,
       // 查询列表加载状态
       listLoading: false,
       loading: false,
+      // 是否为第一次进入
+      isFirstIn: true,
       // 远程搜索参数
       queryParams: {
         searchWorld: '',
@@ -103,15 +103,24 @@ export default {
     '$attrs.value': {
       immediate: true, //  关键，，将立即以表达式的当前值触发回调
       handler(val, oval) {
-        // 若初始化无值需要将列表同步置空
-        if (!val) {
-          this.isFirstIn = false
-          this.remoteMethod()
-        } else {
+        // 防止重复触发
+        if (val === oval) return
+
+        if (val && !oval) {
           // 若存在默认绑定值且第一次进入，将默认值塞入列表项
-          if (this.isFirstIn) {
+          if (Array.isArray(this.label) && Array.isArray(val)) {
+            // 多选
+            val.forEach((item, index) => {
+              this.selectList.push({ label: this.label[index], value: item })
+            })
+          } else {
+            // 单选
             this.selectList.push({ label: this.label, value: val })
           }
+        } else {
+          this.isFirstIn = false
+          // 远程搜索
+          this.remoteMethod()
         }
       }
     }
