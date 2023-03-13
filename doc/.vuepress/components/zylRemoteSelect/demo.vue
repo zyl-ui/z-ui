@@ -10,7 +10,7 @@
       showDefaultList
       @getSelectList="getSelectList"
     />
-    <p>使用label初始化数据实现数据回填</p>
+    <p>使用 <strong>initList</strong> 属性初始化数据实现数据回填</p>
     <p>（1）单选：{{ form2.userId }}</p>
     <zyl-remote-select
       v-model="form2.userId"
