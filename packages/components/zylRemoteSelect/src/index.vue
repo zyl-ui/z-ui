@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2020-04-30 01:04:33
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-03-10 18:04:16
+ * @LastEditTime: 2023-03-16 16:24:09
  * @Descripttion: 远程搜索分页选择器组件
  -->
 
@@ -20,7 +20,7 @@
   >
     <el-option
       v-for="(item, index) in selectListNew"
-      :key="item.value"
+      :key="item.value.toString()"
       :label="item.label"
       :value="item.value"
     >
@@ -83,9 +83,8 @@ export default {
         pageNum: ''
       },
       // 选择项列表
-      selectList: [],
-      // 是否为输入文字筛选
-      searchWord: ''
+      selectList: []
+      // 选择项展示的列表
     }
   },
   computed: {
@@ -102,12 +101,25 @@ export default {
     },
     // 在初始化列表前面追加不重复的新数据
     selectListNew() {
-      let initList = this.searchWord
+      // 过滤关键词
+      let initList = this.queryParams.searchWorld
         ? this.initList.filter(
-            (item) => item.label.indexOf(this.searchWord) > -1
+            (item) => item.label.indexOf(this.queryParams.searchWorld) > -1
           )
         : this.initList
-      return [...initList, ...this.selectList]
+
+      // 去重
+      let filterList = this.selectList.filter((item) => {
+        let flag = true
+        initList.forEach((initItem) => {
+          if (initItem.value === item.value && initItem.label === item.label) {
+            flag = false
+          }
+        })
+        return flag
+      })
+
+      return [...initList, ...filterList]
     },
     realListTotal() {
       return [...this.selectList, ...this.initList].length
@@ -144,11 +156,10 @@ export default {
   methods: {
     // 远程搜索
     remoteMethod(query) {
-      this.searchWord = query
+      this.queryParams.searchWorld = query
       // 根据开关判断是否进行远程搜索
       if (query || this.showDefaultList) {
         this.selectList = []
-        this.queryParams.searchWorld = query
         this.queryParams.pageNum = 1
         this.listLoading = true
         this.getSelectList()
@@ -166,17 +177,6 @@ export default {
             this.listLoading = false
             this.loading = false
           })) || []
-
-      // 去重
-      result = result.filter((item) => {
-        let flag = true
-        this.initList.forEach((initItem) => {
-          if (initItem.value === item.value && initItem.label === item.label) {
-            flag = false
-          }
-        })
-        return flag
-      })
 
       // 将每次分页数据追加
       this.selectList = [...this.selectList, ...result]
