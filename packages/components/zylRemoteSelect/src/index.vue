@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2020-04-30 01:04:33
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-03-16 16:36:46
+ * @LastEditTime: 2023-03-17 14:19:40
  * @Descripttion: 远程搜索分页选择器组件
  -->
 
@@ -33,7 +33,7 @@
       {{
         loading
           ? '加载中'
-          : this.realListTotal < this.total
+          : this.selectList.length < this.total
           ? '下拉加载'
           : '没有更多了'
       }}
@@ -120,9 +120,6 @@ export default {
       })
 
       return [...initList, ...filterList]
-    },
-    realListTotal() {
-      return [...this.selectList, ...this.initList].length
     }
   },
   directives: {
@@ -184,7 +181,7 @@ export default {
     // 远程搜索列表触底事件
     loadmore() {
       // 分页数据不超过总数可以继续下拉请求
-      if (this.realListTotal < this.total) {
+      if (this.selectList.length < this.total) {
         this.queryParams.pageNum++
         this.getSelectList()
       }
