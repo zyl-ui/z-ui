@@ -6,7 +6,7 @@
  * @Descripttion: 远程搜索分页选择器组件
  -->
 
-<template>
+ <template>
   <el-select
     v-model="selectVal"
     v-bind="$attrs"
@@ -48,29 +48,29 @@ export default {
     // 绑定值
     value: {
       type: [String, Number, Array],
-      default: ''
+      default: '',
     },
     // 总列表数，用于判断是否继续下拉分页请求
     total: {
       type: Number,
       require: true,
-      default: 0
+      default: 0,
     },
     // 分页数（不能小于8条，否则下拉滚动不会触发）
     pageSize: {
       type: Number,
-      default: 10
+      default: 10,
     },
     // 初始化需要显示在select上的列表
     initList: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     // 是否显示默认查询列表
     showDefaultList: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
@@ -80,10 +80,10 @@ export default {
       // 远程搜索参数
       queryParams: {
         searchWorld: '',
-        pageNum: ''
+        pageNum: '',
       },
       // 选择项列表
-      selectList: []
+      selectList: [],
       // 选择项展示的列表
     }
   },
@@ -97,7 +97,7 @@ export default {
       // 利用计算属性动态获取外部v-model绑定值
       get() {
         return this.value
-      }
+      },
     },
     // 在初始化列表前面追加不重复的新数据
     selectListNew() {
@@ -120,7 +120,7 @@ export default {
       })
 
       return [...initList, ...filterList]
-    }
+    },
   },
   directives: {
     // 在组件中接受一个 directives 的选项
@@ -129,15 +129,27 @@ export default {
         const SELECTWRAP_DOM = el.querySelector(
           '.el-select-dropdown .el-select-dropdown__wrap'
         )
-        SELECTWRAP_DOM.addEventListener('scroll', function() {
+        SELECTWRAP_DOM.addEventListener('scroll', function () {
+          console.log(
+            'this',
+            this,
+            'this.scrollHeight',
+            this.scrollHeight,
+            'this.scrollTop',
+            this.scrollTop,
+            'this.clientHeight',
+            this.clientHeight
+          )
+          // 内容高度 - 内容滚动条顶部距离 
           const condition =
-            this.scrollHeight - this.scrollTop <= this.clientHeight
+            this.scrollHeight - this.scrollTop - 5 <= this.clientHeight
+          // 满足滚动至底部条件执行加载事件
           if (condition) {
             binding.value()
           }
         })
-      }
-    }
+      },
+    },
   },
   watch: {
     selectVal: {
@@ -147,8 +159,8 @@ export default {
         if (val === oval) return
         // 首次进入进行远程搜索
         !oval && this.remoteMethod()
-      }
-    }
+      },
+    },
   },
   methods: {
     // 远程搜索
@@ -185,8 +197,8 @@ export default {
         this.queryParams.pageNum++
         this.getSelectList()
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
