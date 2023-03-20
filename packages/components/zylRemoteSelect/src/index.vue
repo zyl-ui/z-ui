@@ -130,16 +130,6 @@ export default {
           '.el-select-dropdown .el-select-dropdown__wrap'
         )
         SELECTWRAP_DOM.addEventListener('scroll', function () {
-          console.log(
-            'this',
-            this,
-            'this.scrollHeight',
-            this.scrollHeight,
-            'this.scrollTop',
-            this.scrollTop,
-            'this.clientHeight',
-            this.clientHeight
-          )
           // 内容高度 - 内容滚动条顶部距离 
           const condition =
             this.scrollHeight - this.scrollTop - 5 <= this.clientHeight
