@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 首页 -->
-    <div class="home-page" v-if="hasPass">
+    <div class="home-page">
       <div class="contentWrapper">
         <div class="home-header">
           <div class="menu">
@@ -60,7 +60,7 @@
       </div>
     </div>
     <!-- 文档密码输入框 -->
-    <div class="apt-password-wrap" @keyup.enter="login" v-if="!hasPass">
+    <!-- <div class="apt-password-wrap" @keyup.enter="login" v-if="!hasPass">
       <div class="apt-password-login-form">
         <div class="apt-password-wrap-form">
           <h1>最有料 UI组件库</h1>
@@ -75,12 +75,10 @@
               查看文档
             </button>
           </div>
-          <small
-            ><a target="">{{ errorMsg }}</a>
-          </small>
+          <a target="">{{ errorMsg }}</a>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -90,8 +88,8 @@ export default {
   data() {
     return {
       errorMsg: '',
-      password: '',
-      hasPass: false,
+      password: 'zylinfo',
+      hasPass: false
     }
   },
   mounted() {
@@ -110,8 +108,8 @@ export default {
       } else {
         this.errorMsg = '密码不能为空！'
       }
-    },
-  },
+    }
+  }
 }
 </script>
 

@@ -21,10 +21,10 @@ export default ({ Vue, router }) => {
   Vue.mixin({
     mounted() {
       // 密码鉴权(getCookie需要操作dom，无法用beforeEach)
-      let check = this.$zylUseTools.getCookie('hasPass') ? true : false
-      if (!check && !(this.$route.path === '/')) {
-        this.$router.push({ path: '/' })
-      }
+      // let check = this.$zylUseTools.getCookie('hasPass') ? true : false
+      // if (!check && !(this.$route.path === '/')) {
+      //   this.$router.push({ path: '/' })
+      // }
     },
   })
 
