@@ -1,6 +1,6 @@
 var base64EncodeChars =
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-var base64DecodeChars = new Array(
+var base64DecodeChars = [
   -1,
   -1,
   -1,
@@ -129,7 +129,7 @@ var base64DecodeChars = new Array(
   -1,
   -1,
   -1
-)
+]
 
 export function btoa(str) {
   var out, i, len

@@ -17,7 +17,7 @@ import {
   checkBankNo,
   checkCN,
   checkIntNumNotZreo,
-  checkIntNum,
+  checkIntNum
 } from './check'
 
 /**
@@ -169,7 +169,7 @@ export const startTime = ({
   startLabel = '开始时间',
   endLabel = '结束时间',
   minStartTime = () => {},
-  minStartText,
+  minStartText
 }) => {
   return (rule, value, callback) => {
     const ref = getRef()
@@ -198,7 +198,7 @@ export const endTime = ({
   start,
   startLabel = '开始时间',
   endLabel = '结束时间',
-  minStartTime = () => {},
+  minStartTime = () => {}
 }) => {
   return (rule, value, callback) => {
     const ref = getRef()
@@ -222,7 +222,7 @@ export const validateTimeRange = ({
   endLabel = '结束时间',
   minStartTime,
   minStartText,
-  required,
+  required
 }) => {
   return {
     [start]: [
@@ -234,9 +234,9 @@ export const validateTimeRange = ({
           startLabel,
           endLabel,
           minStartTime,
-          minStartText,
-        }),
-      },
+          minStartText
+        })
+      }
     ],
     [end]: [
       { required, message: `请选择${endLabel}` },
@@ -247,10 +247,10 @@ export const validateTimeRange = ({
           startLabel,
           endLabel,
           minStartTime,
-          minStartText,
-        }),
-      },
-    ],
+          minStartText
+        })
+      }
+    ]
   }
 }
 
@@ -272,7 +272,7 @@ export const validateDisabledDate = (type, compareDate = '') => {
       if (compareDate) {
         compareTime = new Date(compareDate).getTime()
       } else {
-        //不传默认为当前日期
+        // 不传默认为当前日期
         const strDate = new Date().toLocaleDateString()
         compareTime = new Date(strDate).getTime()
       }
@@ -291,7 +291,7 @@ export const validateDisabledDate = (type, compareDate = '') => {
         default:
           return true
       }
-    },
+    }
   }
 }
 

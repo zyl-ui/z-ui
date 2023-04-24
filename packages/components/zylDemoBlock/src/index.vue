@@ -14,24 +14,24 @@
     @mouseleave="hovering = false"
   >
     <div style="padding: 24px">
-      <slot name="source"></slot>
+      <slot name="source" />
     </div>
-    <div class="meta" ref="meta">
-      <div class="description" v-if="$slots.default">
-        <slot></slot>
+    <div ref="meta" class="meta">
+      <div v-if="$slots.default" class="description">
+        <slot />
       </div>
       <div class="sourceCode">
         <span class="copy" @click="copyContent">复制代码</span>
-        <slot name="sourceCode" id="code"></slot>
+        <slot id="code" name="sourceCode" />
       </div>
     </div>
     <div
-      class="demo-block-control"
       ref="control"
+      class="demo-block-control"
       @click="isExpanded = !isExpanded"
     >
       <transition name="arrow-slide">
-        <i :class="[iconClass, { hovering: hovering }]"></i>
+        <i :class="[iconClass, { hovering: hovering }]" />
       </transition>
       <transition name="text-slide">
         <span v-show="hovering">{{ controlText }}</span>
@@ -42,7 +42,15 @@
 
 <script>
 export default {
-  name: 'zylDemoBlock',
+  name: 'ZylDemoBlock',
+  props: {
+    jsfiddle: {
+      type: Object,
+      default() {
+        return {}
+      }
+    }
+  },
   data() {
     return {
       hovering: false,
@@ -53,43 +61,6 @@ export default {
         'hide-text': '隐藏代码',
         'show-text': '显示代码'
       }
-    }
-  },
-
-  props: {
-    jsfiddle: Object,
-    default() {
-      return {}
-    }
-  },
-
-  methods: {
-    scrollHandler() {
-      const { top, bottom } = this.$refs.meta.getBoundingClientRect()
-      this.fixedControl =
-        bottom > document.documentElement.clientHeight &&
-        top + 44 <= document.documentElement.clientHeight
-    },
-
-    removeScrollHandler() {
-      this.scrollParent &&
-        this.scrollParent.removeEventListener('scroll', this.scrollHandler)
-    },
-
-    copyContent(e) {
-      this.$zylUseTools.copyText(
-        e.target.nextSibling.nextSibling.firstChild.firstChild.innerText,
-        () => {
-          this.$zylUseToast({
-            message: '复制成功！'
-          })
-        },
-        () => {
-          this.$zylUseToast({
-            message: '复制失败！'
-          })
-        }
-      )
     }
   },
 
@@ -152,7 +123,7 @@ export default {
 
   mounted() {
     this.$nextTick(() => {
-      let sourceCode = this.$el.getElementsByClassName('sourceCode')[0]
+      const sourceCode = this.$el.getElementsByClassName('sourceCode')[0]
       if (this.$el.getElementsByClassName('description').length === 0) {
         sourceCode.style.width = '100%'
         sourceCode.borderRight = 'none'
@@ -162,6 +133,36 @@ export default {
 
   beforeDestroy() {
     this.removeScrollHandler()
+  },
+
+  methods: {
+    scrollHandler() {
+      const { top, bottom } = this.$refs.meta.getBoundingClientRect()
+      this.fixedControl =
+        bottom > document.documentElement.clientHeight &&
+        top + 44 <= document.documentElement.clientHeight
+    },
+
+    removeScrollHandler() {
+      this.scrollParent &&
+        this.scrollParent.removeEventListener('scroll', this.scrollHandler)
+    },
+
+    copyContent(e) {
+      this.$zylUseTools.copyText(
+        e.target.nextSibling.nextSibling.firstChild.firstChild.innerText,
+        () => {
+          this.$zylUseToast({
+            message: '复制成功！'
+          })
+        },
+        () => {
+          this.$zylUseToast({
+            message: '复制失败！'
+          })
+        }
+      )
+    }
   }
 }
 </script>

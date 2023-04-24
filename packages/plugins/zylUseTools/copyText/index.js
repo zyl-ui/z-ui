@@ -12,16 +12,16 @@
  */
 export function copyText(content, success = () => {}, fail = () => {}) {
   if (!document.queryCommandSupported('copy')) {
-    //为了兼容有些浏览器 queryCommandSupported 的判断
+    // 为了兼容有些浏览器 queryCommandSupported 的判断
     success()
   }
-  let textarea = document.createElement('textarea')
+  const textarea = document.createElement('textarea')
   textarea.value = content
   textarea.readOnly = 'readOnly'
   document.body.appendChild(textarea)
   textarea.select()
   textarea.setSelectionRange(0, content.length)
-  let result = document.execCommand('copy')
+  const result = document.execCommand('copy')
   if (result) {
     success()
   } else {
