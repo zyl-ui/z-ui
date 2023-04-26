@@ -1,7 +1,7 @@
 <template>
   <div
     v-show="imgInfoList.length"
-    :class="onlyOneImgIsAllowed ? 'limit-one' : ''"
+    :class="list.length <= 1 ? 'just-one' : ''"
     class="img-container"
   >
     <Draggable
@@ -14,35 +14,36 @@
         v-for="(item, index) in list"
         :key="index"
         :style="{
-          backgroundImage: `url(${item.url})`,
+          backgroundImage: `url(${onlyUrlListBack ? item : item[fileItemColum.url]})`,
           height: `${imgHeight}`,
-          width: '250px'
+          width: '200px'
         }"
         class="img-item"
         @click="onPerview(index)"
       >
-        <div v-if="!disabled && item.url" class="toolbar-outside">
+        <div v-if="!disabled" class="toolbar-outside">
           <div class="toolbar">
-            <svg-icon
-              icon-class="delete"
-              class="icon icon-delete"
-              @click.stop="onDeleteImg(index)"
-            />
-            <svg-icon
+            <i class="icon el-icon-delete" @click.stop="onDeleteImg(index)" />
+            <i
               v-if="editable"
-              icon-class="edit"
-              class="icon icon-edit"
+              class="icon el-icon-edit-outline"
               @click.stop="onEditImg(index)"
             />
-            <svg-icon
-              v-if="!onlyOneImgIsAllowed"
-              icon-class="drag"
-              class="icon icon-drag"
-            />
+            <i v-if="list.length > 1" class="icon el-icon-rank" />
           </div>
         </div>
       </div>
     </Draggable>
+    <el-image-viewer
+      v-if="imgViewerVisible"
+      :initial-index="Number(currentIndex)"
+      :preview-src-list="imgUrlList"
+      :on-close="closeViewer"
+      :url-list="imgUrlList"
+      :append-to-body="true"
+      :zIndex="10000"
+      :mask-closable="true"
+    />
   </div>
 </template>
 
@@ -51,14 +52,11 @@ import Draggable from 'vuedraggable'
 export default {
   name: 'DragableImgList',
   components: {
-    Draggable
+    Draggable,
+    'el-image-viewer': () =>
+      import('element-ui/packages/image/src/image-viewer')
   },
   props: {
-    limit: {
-      // 图片张数限制
-      type: Number,
-      default: 10
-    },
     imgInfoList: {
       // 图片url列表
       type: Array,
@@ -77,27 +75,46 @@ export default {
       default() {
         return [300, 545]
       }
+    },
+    // 当onlyUrlListBack关闭时生效，确保选取的字段符合组件接收的数据格式
+    fileItemColum: {
+      type: Object,
+      default: () => ({
+        name: 'name',
+        url: 'url'
+      })
+    },
+    onlyUrlListBack: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
-      list: []
+      list: [],
+      currentIndex: '',
+      imgViewerVisible: false
     }
   },
   computed: {
-    onlyOneImgIsAllowed() {
-      // 只允许上传一张图片
-      return this.limit === 1
-    },
     imgHeight() {
       if (this.fixedNumber.length) {
-        return (250 / this.fixedNumber[0]) * this.fixedNumber[1] + 'px'
+        return (200 / this.fixedNumber[0]) * this.fixedNumber[1] + 'px'
       } else {
-        return '140px' // 传入fixedNumber为[]s是高度默认为200
+        return '140px' // 传入fixedNumber为[]时高度默认为140
       }
     },
     editable() {
       return this.fixedNumber.length !== 0
+    },
+    imgUrlList() {
+      if (this.onlyUrlListBack) {
+        return this.list
+      } else {
+        return this.imgInfoList.map(item => {
+          return item[this.fileItemColum.url]
+        })
+      }
     }
   },
   watch: {
@@ -123,17 +140,23 @@ export default {
         type: 'warning'
       })
         .then(() => {
-          this.$emit('delete', index)
+          this.list.splice(index, 1)
+          this.$emit('input', this.list)
         })
         .catch(() => {})
     },
     // 拖拽
     onDragEnd() {
-      this.$emit('dragEnd', this.list)
+      this.$emit('input', this.list)
     },
     // 预览
     onPerview(index) {
-      this.$emit('perview', index)
+      this.currentIndex = index
+      this.imgViewerVisible = true
+    },
+    // 图片预览组件关闭弹窗
+    closeViewer() {
+      this.imgViewerVisible = false
     }
   }
 }
@@ -147,7 +170,7 @@ export default {
   background: #f5f8fe;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE 10+ */
-  &.limit-one {
+  &.just-one {
     background-color: transparent;
   }
   &::-webkit-scrollbar {
@@ -194,6 +217,9 @@ export default {
         height: 100%;
         width: 40px;
         .icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
           padding: 5px;
           cursor: pointer;
           margin: 0 auto;
@@ -202,12 +228,12 @@ export default {
           &:hover {
             color: #1890ff;
           }
-          &.icon-delete {
+          &.el-icon-delete {
             &:hover {
               color: #ff4141;
             }
           }
-          &.icon-drag {
+          &.el-icon-edit-outline {
             &:hover {
               color: #67c23a;
             }
