@@ -7,15 +7,16 @@
  */
 
 module.exports = {
+  lintOnSave: false,
   pages: {
     index: {
       entry: 'examples/main.js',
       template: 'public/index.html',
-      filename: 'index.html',
-    },
+      filename: 'index.html'
+    }
   },
   // 扩展 webpack 配置
-  chainWebpack: (config) => {
+  chainWebpack: config => {
     // packages 加入编译
     config.module
       .rule('js')
@@ -25,5 +26,5 @@ module.exports = {
       .loader('babel-loader')
     // 别名配置
     config.resolve.alias.set('@', '/examples').set('@packages', '/packages')
-  },
+  }
 }

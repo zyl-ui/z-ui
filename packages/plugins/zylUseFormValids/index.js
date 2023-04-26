@@ -6,12 +6,12 @@
  * @Descripttion: 过滤函数操作相关插件
  */
 
-//引入一些过滤函数（字段过滤转换）
+// 引入一些过滤函数（字段过滤转换）
 import * as valids from './formValidate'
 
 export default {
   install(Vue) {
     // 全局表单校验函数注册
     Vue.prototype.$zylUseFormValids = valids
-  },
+  }
 }

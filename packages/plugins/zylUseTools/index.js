@@ -15,7 +15,7 @@ export default {
     Vue.prototype.$zylUseTools = {
       ...cookieTool,
       ...fileTool,
-      ...copyTextTool,
+      ...copyTextTool
     }
-  },
+  }
 }

@@ -1,7 +1,7 @@
 // 电话或手机脱敏
 export const zylTel = (val) => {
   let valTrim = ''
-  if (null !== val) {
+  if (val !== null) {
     valTrim = val.toString().trim()
     if (valTrim.length === 11) {
       return (
@@ -78,16 +78,16 @@ export const zylDataFormat = (
   format = '{y}-{m}-{d}',
   showEmptTxt = true
 ) => {
-  let emptTxt = showEmptTxt ? '-' : ''
-  //判断后端是否传空
+  const emptTxt = showEmptTxt ? '-' : ''
+  // 判断后端是否传空
   if (!time) {
     return emptTxt
   }
-  //判断后端是否帮我们转换过了
+  // 判断后端是否帮我们转换过了
   if (typeof time === 'string' && time.length > 0) {
     return time
   }
-  //没有再去转换
+  // 没有再去转换
   const res = zylParseTime(time, format)
   const data = res.indexOf('NaN') > -1 ? emptTxt : res
   return data
@@ -113,7 +113,7 @@ export function zylParseTime(time, cFormat) {
     h: date.getHours(),
     i: date.getMinutes(),
     s: date.getSeconds(),
-    a: date.getDay(),
+    a: date.getDay()
   }
   const time_str = format.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key) => {
     let value = formatObj[key]

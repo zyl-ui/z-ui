@@ -6,7 +6,7 @@
  * @Descripttion: 过滤函数操作相关插件
  */
 
-//引入一些过滤函数（字段过滤转换）
+// 引入一些过滤函数（字段过滤转换）
 import * as filters from './filters'
 
 export default {
@@ -15,5 +15,5 @@ export default {
     Object.keys(filters).forEach((key) => {
       Vue.filter(key, filters[key])
     })
-  },
+  }
 }

@@ -21,17 +21,17 @@ export default {
         propsData: toastOptions,
         onClose: () => {
           currentToast = null
-        },
+        }
       })
     }
-  },
+  }
 }
 
 // 创建toast
 function createToast({ Vue, propsData, onClose }) {
-  const construstor = Vue.extend(zylToast)
-  const toast = new construstor({
-    propsData,
+  const Construstor = Vue.extend(zylToast)
+  const toast = new Construstor({
+    propsData
   })
   toast.$slots.default = [propsData.message]
   toast.$mount()

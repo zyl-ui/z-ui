@@ -13,9 +13,6 @@
         ref="cropperRef"
         v-bind="cropOption"
         style="width: 100%; height: 400px"
-        @realTime="onRealTime"
-        @imgLoad="onImgLoad"
-        @cropMoving="onCropMoving"
       />
 
       <template #footer>
@@ -46,7 +43,7 @@
 
 <script>
 import { VueCropper } from 'vue-cropper'
-import { apiUploadImage } from '@/api'
+import axios from 'axios'
 export default {
   name: 'DialogCropper',
   components: { VueCropper },
@@ -67,6 +64,11 @@ export default {
       // 截取框宽高
       type: Boolean,
       default: true
+    },
+    action: {
+      type: String,
+      require: true,
+      default: ''
     }
   },
   data() {
@@ -104,8 +106,6 @@ export default {
       handler(newVal) {
         if (newVal.length) {
           this.cropOption.fixedNumber = newVal
-        } else {
-          // this.getImageSize(newVal)
         }
       },
       immediate: true
@@ -130,7 +130,7 @@ export default {
       }
       reader.readAsDataURL(file)
     },
-    saveImage() {
+    async saveImage() {
       this.pending = true
       this.$refs.cropperRef.getCropBlob(async blob => {
         const fd = new FormData()
@@ -138,7 +138,7 @@ export default {
         try {
           const {
             data: { entity = {} }
-          } = await apiUploadImage(fd)
+          } = await axios.post(this.action, fd)
           this.$emit('confirm', entity)
           this.dialogVisible = false
         } catch (error) {
@@ -150,22 +150,7 @@ export default {
     },
     beforeClose() {
       this.dialogVisible = false
-      this.$emit('cancelCrop')
-    },
-    getImageSize(url) {
-      return new Promise(resolve => {
-        const img = document.createElement('img')
-        img.src = url
-        img.onload = () => {
-          this.cropOption.fixedNumber = [img.naturalWidth, img.naturalHeight]
-          // 为什么要写 onload  是因为要等他加载完之后才能获取到图片宽高
-          resolve(img.naturalWidth, img.naturalHeight) //  2064,4608
-        }
-      })
-    },
-    onRealTime() {},
-    onImgLoad() {},
-    onCropMoving() {}
+    }
   }
 }
 </script>

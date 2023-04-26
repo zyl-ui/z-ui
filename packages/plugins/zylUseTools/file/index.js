@@ -20,7 +20,7 @@ export function fileDownload(file, name) {
 
   // file是url
   if (file.indexOf('http') > -1) {
-    name = name ? name : getUrlFileName(file)
+    name = name || getUrlFileName(file)
     const link = document.createElement('a')
     link.style.display = 'none'
     link.href = file
@@ -71,8 +71,8 @@ export function getUrlFileName(url) {
  * @returns {String}
  */
 export function getExtensionFromBase64(base64) {
-  let re = new RegExp('/(?<ext>.*?);base64,.*')
-  let res = re.exec(base64)
+  const re = new RegExp('/(?<ext>.*?);base64,.*')
+  const res = re.exec(base64)
   if (res) {
     return res.groups.ext
   }
@@ -84,7 +84,7 @@ export function getExtensionFromBase64(base64) {
  * @returns {Boolean}
  */
 export function checkBase64(base64) {
-  let re = new RegExp('/(?<ext>.*?);base64,.*')
+  const re = new RegExp('/(?<ext>.*?);base64,.*')
   return re.exec(base64)
 }
 
@@ -111,11 +111,11 @@ export function getUUID() {
  * @param {string} base64String Blob格式数据
  */
 export function base64toBlob(base64String) {
-  var arr = base64String.split(','),
-    mime = arr[0].match(/:(.*?);/)[1],
-    bstr = atob(arr[1]),
-    n = bstr.length,
-    u8arr = new Uint8Array(n)
+  const arr = base64String.split(',')
+  const mime = arr[0].match(/:(.*?);/)[1]
+  const bstr = atob(arr[1])
+  const u8arr = new Uint8Array(n)
+  let n = bstr.length
   while (n--) {
     u8arr[n] = bstr.charCodeAt(n)
   }
@@ -130,7 +130,7 @@ export function base64toBlob(base64String) {
  */
 export function blobToBase64(file) {
   return new Promise(function(resolve, reject) {
-    let reader = new FileReader()
+    const reader = new FileReader()
     reader.readAsDataURL(file)
     reader.onload = function() {
       resolve(reader.result)
@@ -199,11 +199,11 @@ export function getBase64Size(base64String) {
   // 由字节转换为KB
   var size = ''
   size = (fileLength / 1024).toFixed(2)
-  var sizeStr = size + '' //转成字符串
-  var index = sizeStr.indexOf('.') //获取小数点处的索引
-  var dou = sizeStr.substring(index + 1, 2) //获取小数点后两位的值
+  var sizeStr = size + '' // 转成字符串
+  var index = sizeStr.indexOf('.') // 获取小数点处的索引
+  var dou = sizeStr.substring(index + 1, 2) // 获取小数点后两位的值
   if (dou == '00') {
-    //判断后两位是否为00，如果是则删除00
+    // 判断后两位是否为00，如果是则删除00
     return sizeStr.substring(0, index) + sizeStr.substring(index + 3, 2)
   }
   return parseInt(size)
