@@ -9,7 +9,9 @@
       width="600px"
       :append-to-body="true"
     >
-      <vue-cropper
+      <component
+        v-if="component"
+        :is="component"
         ref="cropperRef"
         v-bind="cropOption"
         style="width: 100%; height: 400px"
@@ -42,11 +44,9 @@
 </template>
 
 <script>
-import { VueCropper } from 'vue-cropper'
 import axios from 'axios'
 export default {
   name: 'DialogCropper',
-  components: { VueCropper },
   props: {
     imgSrc: {
       // 需要被截取的图片url
@@ -73,6 +73,7 @@ export default {
   },
   data() {
     return {
+      component: '',
       dialogVisible: false,
       pending: false,
       cropOption: {
@@ -97,6 +98,10 @@ export default {
         high: true // 是否根据dpr生成适合屏幕的高清图片
       }
     }
+  },
+  mounted() {
+    const VueCropperModule = require('vue-cropper')
+    this.component = VueCropperModule.VueCropper
   },
   watch: {
     imgSrc(newVal) {
@@ -124,7 +129,7 @@ export default {
         return
       }
       const reader = new FileReader()
-      reader.onload = event => {
+      reader.onload = (event) => {
         this.dialogVisible = true
         this.cropOption.img = event.target.result
       }
@@ -132,7 +137,7 @@ export default {
     },
     async saveImage() {
       this.pending = true
-      this.$refs.cropperRef.getCropBlob(async blob => {
+      this.$refs.cropperRef.getCropBlob(async (blob) => {
         const fd = new FormData()
         fd.append('file', blob)
         try {
