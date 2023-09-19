@@ -1,14 +1,14 @@
 /*
  * @Author: zhanghan
  * @Date: 2022-11-24 11:07:14
- * @LastEditors: zhanghan
- * @LastEditTime: 2023-04-27 10:10:27
+ * @LastEditors: zhanghan 294333196@qq.com
+ * @LastEditTime: 2023-09-19 08:16:39
  * @Descripttion:
  */
 module.exports = {
   title: '最有料 UI',
   description: '一个基于 Vue 和 elementUI 的 最有料 UI PC端业务组件库',
-  // base: '/zyl-ui/',
+  base: '/zyl-ui/',
   host: 'localhost',
   head: [
     [
