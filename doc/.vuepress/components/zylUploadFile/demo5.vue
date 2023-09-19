@@ -11,7 +11,7 @@
       :limit="3"
       onlyUrlListBack
       useFileViewer
-      viewerUrl="https://home.sharecorner.top/file-viewer-doc/file-viewer/index.html"
+      viewerUrl="https://home.me7.cn/file-viewer-doc/file-viewer/index.html"
     />
     <p>
       2、非直传示例
@@ -21,7 +21,7 @@
       :limit="3"
       changeBase64
       useFileViewer
-      viewerUrl="https://home.sharecorner.top/file-viewer-doc/file-viewer/index.html"
+      viewerUrl="https://home.me7.cn/file-viewer-doc/file-viewer/index.html"
     />
   </div>
 </template>
@@ -35,9 +35,9 @@ export default {
         'ZYL-BIZ-TYPE': 'RISK'
       }, //直传的头部信息（若您的接口不需要headers可去除headers配置项）
       fileList: [
-        'https://home.sharecorner.top/fileTest/pdf.pdf',
-        'https://home.sharecorner.top/fileTest/word.docx',
-        'https://home.sharecorner.top/fileTest/pic.png'
+        'https://home.me7.cn/fileTest/pdf.pdf',
+        'https://home.me7.cn/fileTest/word.docx',
+        'https://home.me7.cn/fileTest/pic.png'
       ],
       fileList2: [
         {
