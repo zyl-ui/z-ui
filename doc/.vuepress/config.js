@@ -8,7 +8,7 @@
 module.exports = {
   title: '最有料 UI',
   description: '一个基于 Vue 和 elementUI 的 最有料 UI PC端业务组件库',
-  base: './',
+  base: '/',
   host: 'localhost',
   head: [
     [
