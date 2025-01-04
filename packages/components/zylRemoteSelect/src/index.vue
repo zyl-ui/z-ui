@@ -30,13 +30,7 @@
       <slot :name="name" />
     </template>
     <el-button type="text" :loading="loading" class="load-text">
-      {{
-        loading
-          ? '加载中'
-          : this.selectList.length < this.total
-          ? '下拉加载'
-          : '没有更多了'
-      }}
+      {{ getLoadingText() }}
     </el-button>
   </el-select>
 </template>
@@ -153,6 +147,17 @@ export default {
     },
   },
   methods: {
+    // 获取加载文本
+    getLoadingText() {
+      if (this.loading) {
+        return '加载中'
+      } else if (this.selectList.length < this.total) {
+        return '下拉加载'
+      } else {
+        return '没有更多了'
+      }
+    },
+    
     // 远程搜索
     remoteMethod(query) {
       this.queryParams.searchWorld = query

@@ -1,6 +1,6 @@
 {
   "name": "@zuiyouliao/zyl-ui",
-  "version": "0.8.5",
+  "version": "0.8.6",
   "private": false,
   "author": "zly <294333196@qq.com>",
   "license": "MIT",
@@ -70,5 +70,12 @@
   "engines": {
     "node": ">=12.18.0",
     "npm": ">=6.14.0"
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "sourceType": "module",
+      "allowImportExportEverywhere": true
+    }
   }
 }

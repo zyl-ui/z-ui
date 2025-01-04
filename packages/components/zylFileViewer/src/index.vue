@@ -167,7 +167,8 @@ export default {
     },
     // 推送文件流到iframe
     postMessage(el, data) {
-      el.contentWindow.postMessage(data, this.viewerUrl)
+      const targetOrigin = '*' // 或者使用具体的域名如 'https://file-viewer.me7.cn'
+      el.contentWindow.postMessage(data, targetOrigin)
     }
   }
 }
