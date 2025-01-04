@@ -5,7 +5,7 @@
     </el-button>
     <zyl-file-viewer
       v-model="showFileViewer"
-      viewerUrl="https://home.me7.cn/file-viewer-doc/file-viewer/index.html"
+      viewerUrl="https://file-viewer.me7.cn/file-viewer/index.html"
       :fileList="fileList"
     ></zyl-file-viewer>
   </div>
@@ -17,9 +17,9 @@ export default {
     return {
       showFileViewer: false,
       fileList: [
-        'https://home.me7.cn/fileTest/pdf.pdf',
-        'https://home.me7.cn/fileTest/word.docx',
-        'https://home.me7.cn/fileTest/pic.png'
+        'https://file-viewer.me7.cn/fileTest/pdf.pdf',
+        'https://file-viewer.me7.cn/fileTest/word.docx',
+        'https://file-viewer.me7.cn/fileTest/pic.png'
       ]
     }
   },
