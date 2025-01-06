@@ -29,6 +29,7 @@
           v-loading="item.loading"
         >
           <iframe
+            :ref="'iframe' + index"
             :src="iframeUrl(item, index)"
             @load="(e) => loadMethod(e, index)"
             scrolling="auto"
@@ -148,10 +149,12 @@ export default {
     loadMethod(e, index) {
       this.fileListInfo[index].loading = false //关闭加载完成项的loading
       const url = this.fileListInfo[index].url
+
       // 如果是base64格式的需要转blob推流
       if (checkBase64(url)) {
         const blob = base64toBlob(url)
-        this.postMessage(e.path[0], blob)
+        const iframeRef = this.$refs['iframe' + index][0]
+        this.postMessage(iframeRef, blob)
       }
     },
     // 文件切换事件
@@ -167,8 +170,7 @@ export default {
     },
     // 推送文件流到iframe
     postMessage(el, data) {
-      const targetOrigin = '*' // 或者使用具体的域名如 'https://file-viewer.me7.cn'
-      el.contentWindow.postMessage(data, targetOrigin)
+      el.contentWindow.postMessage(data, '*')
     }
   }
 }

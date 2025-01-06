@@ -12,7 +12,7 @@
         viewBox="0 0 17 17"
         xmlns="http://www.w3.org/2000/svg"
         class="Icon Icon--backToTopArrow"
-        aria-hidden="true"
+        aria-hidden="inert"
         style="height: 16px; width: 16px;"
       >
         <title>回到顶部</title>
